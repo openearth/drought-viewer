@@ -19,4 +19,8 @@ const items_tab3 = [
   { id: 'Scenario net', name: 'Scenario net' , layer: '', time_stamp: ''}
 ];
 
-export { app_name, tab1, tab2, tab3, tab4, items_tab2, items_tab3 };
+const items_tab4 = [
+
+];
+
+export { app_name, tab1, tab2, tab3, tab4, items_tab2, items_tab3, items_tab4 };

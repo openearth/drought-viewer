@@ -37,24 +37,59 @@
     ></v-treeview>
     </v-sheet>
 
+    <!-- <v-row justify="center" class="pa-4 ma-4" >
+      <v-card-text class="text-center">
+        Time Slider
+      </v-card-text>
+      <range-slider
+        class="slider"
+        min="1"
+        max="12"
+        step="1"
+        v-model="sliderValue">
+      </range-slider>
+    </v-row> -->
+
   </div>
 </template>
 
 <script>
+
 import arrayDiff from '@/lib/get-arrays-difference';
 import { formatIdToLabel } from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
 import { tab3, items_tab3 } from "../../../config/datalayers-config";
+import RangeSlider from 'vue-range-slider'
+import 'vue-range-slider/dist/vue-range-slider.css'
+
+
+
+
 
 export default {
   data: () => ({
     visibleLayers: [],
-    items: items_tab3
+    items: items_tab3,
+    sliderValue: 1,
   }),
+  components: {
+    // RangeSlider
+
+  },
   computed:{
     tabname() {
       return tab3;
-  }},
+    },
+    options() {
+      return {
+        options: {
+        barColor: '#444',
+        barColorActive: '#337ab7',
+        prefix: '$'
+      }
+      };
+    }
+  },
 
   methods: {
     addLayer(layer, time_stamp) {
@@ -105,3 +140,17 @@ export default {
   }
 };
 </script>
+<style>
+
+.slider {
+  /* overwrite slider styles */
+  height: 30px;
+  width: 300px;
+}
+.range-slider-rail {
+  height: 10px;
+}
+.range-slider-fill {
+    background-color: #49a5e2;
+}
+</style>

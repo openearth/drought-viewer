@@ -16,7 +16,7 @@ const items_tab2 = [
 const items_tab3 = [
   { id: 'Scenario droog', name: 'Scenario droog' , layer: '', time_stamp: ''},
   { id: 'Scenario gemiddeld', name: 'Scenario gemiddeld' , layer: '', time_stamp: ''},
-  { id: 'Scenario net', name: 'Scenario net' , layer: '', time_stamp: ''}
+  { id: 'Scenario net', name: 'Scenario nat' , layer: '', time_stamp: ''}
 ];
 
 const items_tab4 = [

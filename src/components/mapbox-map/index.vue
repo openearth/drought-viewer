@@ -42,12 +42,12 @@
 <script>
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS} from '@/lib/constants';
+import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS} from '../../../config/constants';
 import MapLayer from './map-layer';
 import MapControlBaselayer from './map-control-baselayer';
 // import MapControlFitbounds from './map-control-fitbounds';
 import getLocalJson from '@/data/get-local-json';
-import buildGeojsonLayer from '@/lib/build-geojson-layer';
+
 
 
 export default {
@@ -89,7 +89,7 @@ export default {
       this.$root.map = map;
       map.on('load', ()  => {
         this.$root.mapLoaded = true;
-        this.addLayer ()
+        this.fakeRequestToBuildLayer ()
        });
     },
     fitToBounds() {
@@ -99,25 +99,21 @@ export default {
         zoom: this.mapConfig.zoom
       });
     },
-    async addLayer() {
-      const layer = await this.fakeRequestToBuildLayer();
-      console.log('lala')
-      this.$root.map.addLayer(layer)
-      // this.$store.commit('mapbox/ADD_GEOJSON_LAYER', layer);
-    },
     async fakeRequestToBuildLayer() {
       const data = await getLocalJson(`provinces.json`);
-      console.log(data)
-      const layer =  buildGeojsonLayer({
-        id:'provinces',
-        data,
-        type:'fill',
-        paint: {
-          'fill-color': '#088',
-          'fill-opacity': 0.8
-        }
+      this.$root.map.addSource('provinces', {
+          'type': 'geojson',
+          'data': data
       });
-      this.$root.map.addLayer(layer)
+      this.$root.map.addLayer({
+          'id': 'wtf',
+          'type': 'line',
+          'source': 'provinces',
+          'layout': {},
+          'paint': {
+          'line-width': 1.5
+          }
+      });
     },
     layerClick(e) {
       var features = this.$root.map.queryRenderedFeatures(e.point, { layers: [e.features[0].layer.source] });

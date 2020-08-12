@@ -10,8 +10,8 @@ export const MAP_CENTER = [
 export const MAP_ZOOM = 6.5;
 
 export const MAP_BASELAYERS = [
-  'streets',
-  'light'
+  'light',
+  'streets'
 ].map(layer => ({
   style: `mapbox://styles/mapbox/${ layer }-v9`,
   title: layer,

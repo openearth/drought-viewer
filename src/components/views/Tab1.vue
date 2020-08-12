@@ -16,11 +16,15 @@
     </v-card-title>
 
       <v-card-text class="text--primary">
-          <div>Het jaar 2018 was extreem droog, met grote economische schade tot gevolg. Het daaropvolgende jaar 2019 was vooral regionaal een erg droog jaar en ook het voorjaar van 2020 was erg droog.</div>
+          <div>Het jaar 2018 was extreem droog, met grote economische schade tot gevolg.
+               Het daaropvolgende jaar 2019 was vooral regionaal een erg droog jaar en ook het voorjaar van 2020 was erg droog.</div>
       </v-card-text>
 
       <v-card-text>
-          <div> De droogte van de afgelopen jaren resulteerde in lage tot zeer lage grondwaterstanden. Dit heeft negatieve gevolgen voor de landbouw en natuur. Er zijn een aantal maatregelen mogelijk om de droogteschade te beperken, zoals het neerslagwater langer vasthouden op perceelniveau of het instellen van beperkingen voor beregening uit lokale waterlopen en grondwater. Bij zulke maatregelen is het van belang om vooruit te kunnen blikken en de ontwikkeling van de droogte en de grondwaterstanden goed in te kunnen schatten.</div>
+          <div> De droogte van de afgelopen jaren resulteerde in lage tot zeer lage grondwaterstanden.
+                 Dit heeft negatieve gevolgen voor de landbouw en natuur. Er zijn een aantal maatregelen mogelijk om de droogteschade te beperken,
+                 zoals het neerslagwater langer vasthouden op perceelniveau of het instellen van beperkingen voor beregening uit lokale waterlopen en grondwater.
+                 Bij zulke maatregelen is het van belang om vooruit te kunnen blikken en de ontwikkeling van de droogte en de grondwaterstanden goed in te kunnen schatten.</div>
       </v-card-text>
 
       <v-card-text>
@@ -51,7 +55,9 @@
         Meer informatie?
       </v-card-title>
       <v-card-text>
-       Wil je meer weten over de scenarioberekeningen in deze web-viewer? Of ben je geïnteresseerd in meer informatie over droogte en grondwater in Nederland? Neem dan contact op met Deltares via droogteradar@deltares.nl
+       Wil je meer weten over de scenarioberekeningen in deze web-viewer? Of ben je geïnteresseerd in meer informatie over droogte en grondwater in Nederland?
+        Neem dan contact op met Deltares via  <a href="mailto:droogteradar@deltares.nl?subject=Droogte Radar Deltares">Deltares contact</a>
+
       </v-card-text>
     <!-- <v-sheet class="pa-5"> -->
     <!-- <v-treeview
@@ -72,10 +78,7 @@
 </template>
 
 <script>
-import arrayDiff from '@/lib/get-arrays-difference';
-import { formatIdToLabel } from '@/lib/format-id-to-label';
-import buildWmsLayer from '@/lib/build-wms-layer';
-import { tab1 } from "../../config/datalayers-config.js";
+import { tab1 } from "../../../config/datalayers-config";
 
 export default {
   data: () => ({

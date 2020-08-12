@@ -2,10 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
 
-import Tab1 from '@/views/Tab1';
-import Tab2 from '@/views/Tab2';
-import Tab3 from '@/views/Tab3';
-import Tab4 from '@/views/Tab4';
+import Tab1 from '../components/views/Tab1';
+import Tab2 from '../components/views/Tab2';
+import Tab3 from '../components/views/Tab3';
+import Tab4 from '../components/views/Tab4';
 
 Vue.use(VueRouter);
 

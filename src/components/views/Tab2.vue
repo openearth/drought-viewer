@@ -44,7 +44,7 @@
 import arrayDiff from '@/lib/get-arrays-difference';
 import formatIdToLabel from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
-import { tab2, items_tab2 } from "../../config/datalayers-config.js";
+import { tab2, items_tab2 } from "../../../config/datalayers-config";
 
 export default {
   data: () => ({

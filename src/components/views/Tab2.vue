@@ -16,34 +16,6 @@
           <div>3.	Het is komende zes maanden <strong>erg nat</strong> (scenario nat).</div>
         </v-card-text>
 
-        <v-radio-group class="justify-center">
-          <v-radio
-            on-icon='mdi-checkbox-multiple-marked-circle'
-            off-icon = 'mdi-circle-outline'
-            color="blue"
-            v-for="layer in layers"
-            :key="layer.id"
-            :label="layer.name"
-            :value="layer.id"
-          ></v-radio>
-        </v-radio-group>
-<!--
-        <v-sheet  class="ps-9">
-        <v-radio-group justify-center
-          selectable
-          selection-type='independent'
-          rounded
-          hoverable
-          transition
-          on-icon='mdi-checkbox-multiple-marked-circle'
-          off-icon = 'mdi-circle-outline'
-          color="blue"
-          dense
-          :items="items"
-          v-model="visibleLayers"
-        ></v-radio-group>
-      </v-sheet> -->
-
       <v-card-text>
         Deze kaarten tonen, voor ieder van de drie scenario’s, de afwijking van de grondwaterstand voor een specifieke maand ten opzichte van de langjarig gemiddelde grondwaterstand van die maand.
       </v-card-text>
@@ -53,40 +25,53 @@
       </v-card-text>
 
 
-    <!-- <v-row justify="center" class="pa-4 ma-4" >
+    <v-row justify="center" class="pl-4 ml-4" >
+      <v-container fluid justify="center" class="pl-4 ml-4">
+        <v-radio-group v-model="selectedScenario" :mandatory="false">
+          <v-radio label="Scenario droog" value="1"></v-radio>
+          <v-radio label="Scenario gemiddeld" value="2"></v-radio>
+          <v-radio label="Scenario nat" value="3"></v-radio>
+        </v-radio-group>
+      </v-container>
+
       <v-card-text class="text-center">
-        Time Slider
+        Geselecteerde maand: {{this.monthName}}
       </v-card-text>
       <range-slider
+        :disabled="disabled"
         class="slider"
-        min="1"
-        max="12"
+        min="0"
+        :max="this.items[0].children.length-1"
         step="1"
         v-model="sliderValue">
       </range-slider>
-    </v-row> -->
+    </v-row>
 
   </div>
 </template>
 
 <script>
-
-import arrayDiff from '@/lib/get-arrays-difference';
 import { formatIdToLabel } from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
-import { tab2, items_tab2 } from "../../../config/datalayers-config";
-import RangeSlider from 'vue-range-slider'
-import 'vue-range-slider/dist/vue-range-slider.css'
+import { tab2, months_tab2 } from "../../../config/datalayers-config";
+import RangeSlider from 'vue-range-slider';
+import 'vue-range-slider/dist/vue-range-slider.css';
 
 export default {
   data: () => ({
+    scenarios:[
+      {id:1, name:"Scenario droog"},
+      {id:2, name:"Scenario gemiddeld"},
+      {id:3, name:"Scenario nat"}],
     visibleLayers: [],
-    layers: items_tab2,
-    // items: items_tab2,
-    sliderValue: 1,
+    selectedScenario:[],
+    items: months_tab2,
+    sliderValue: 0,
+    disabled:true,
+    monthName:""
   }),
   components: {
-    // RangeSlider
+    RangeSlider
 
   },
   computed:{
@@ -107,7 +92,6 @@ export default {
   methods: {
     addLayer(layer, time_stamp) {
       const wmsLayer = buildWmsLayer(layer, time_stamp);
-      console.log("1",wmsLayer)
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
 
     },
@@ -123,29 +107,25 @@ export default {
    },
 
   watch: {
-    visibleLayers(newArray, oldArray) {
-      const removeLayerId = newArray.length < oldArray.length;
+    selectedScenario(newScenario) {
+      this.$store.commit('mapbox/REMOVE_ALL_LAYERS');
+      this.monthName='';
+      this.sliderValue=0;
+      this.selectedScenario=newScenario;
+      this.disabled= false;
+    },
+
+    sliderValue(newArray, oldArray) {
+      const removeLayerId = newArray < oldArray;
       if(removeLayerId) {
-        const layerToRemoveId = arrayDiff(oldArray, newArray)[0];
+        const layerToRemoveId = this.items[this.selectedScenario-1].children[oldArray].id;
+        this.monthName=this.items[this.selectedScenario-1].children[oldArray-1].name;
         this.removeLayer(layerToRemoveId);
         this.$store.commit('mapbox/SET_LEGEND_LAYER', null);
       }
       else {
-        const layerToAddId = arrayDiff(newArray, oldArray)[0];
-        var layerToAdd;
-        for (var i=0; i < this.items.length; i++) {
-          console.log('loop',this.items.length)
-          var child = this.items[i].children;
-          console.log('loop2',child)
-          for (var m=0; m < child.length; m++) {
-            console.log('loop3',child.length)
-            if (child[m].id == layerToAddId){
-               layerToAdd = child[m];
-            }
-          }
-        }
-        // const layerToAdd = layers_to_show.find(({ id }) => id === layerToAddId);
-        console.log(layerToAdd)
+        const layerToAdd= this.items[this.selectedScenario-1].children[newArray];
+        this.monthName=layerToAdd.name;
         this.addLayer(layerToAdd);
         this.$store.commit('mapbox/SET_LEGEND_LAYER', layerToAdd.layer);
       }
@@ -158,7 +138,8 @@ export default {
 .slider {
   /* overwrite slider styles */
   height: 30px;
-  width: 300px;
+  width: 360px;
+  /* box-sizing:border-box; */
 }
 .range-slider-rail {
   height: 10px;

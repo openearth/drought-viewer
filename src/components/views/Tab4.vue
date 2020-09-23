@@ -41,7 +41,7 @@
         De droogte van de afgelopen jaren resulteerde in lage tot zeer lage grondwaterstanden. Dit heeft negatieve gevolgen voor de landbouw en natuur. Er zijn een aantal maatregelen mogelijk om de droogteschade te beperken, zoals het neerslagwater langer vasthouden op perceelniveau of het instellen van beperkingen voor beregening uit lokale waterlopen en grondwater. Bij zulke maatregelen is het van belang om vooruit te kunnen blikken en de ontwikkeling van de droogte en de grondwaterstanden goed in te kunnen schatten. Dat kan met behulp van deze webviewer.
       </v-card-text>
       <v-card-text>
-       De drie meteorolosiche scenario’s (erg droog, gemiddeld, nat) worden wekelijks doorgerekend met het Landelijk Hydrologisch Model (LHM; meer informatie via www.nhi.nu). Eerst wordt de actuele toestand van het grondwater bepaald door het LHM door te rekenen met meteorologische gegevens (bron: KNMI) tot op de dag van de update. Vervolgens worden de drie volgende scenario’s doorgerekend voor de zes maanden daarna:
+       De drie meteorologische scenario’s (erg droog, gemiddeld, nat) worden wekelijks doorgerekend met het Landelijk Hydrologisch Model (LHM; meer informatie via www.nhi.nu). Eerst wordt de actuele toestand van het grondwater bepaald door het LHM door te rekenen met meteorologische gegevens (bron: KNMI) tot op de dag van de update. Vervolgens worden de drie volgende scenario’s doorgerekend voor de zes maanden daarna:
         <v-card-text>
           <div>1.	Scenario droog: 5-percentiel van het langjarig gemiddeld neerslagtekort;</div>
           <div>2.	Scenario gemiddeld: 50-percentiel van het langjarig gemiddeld neerslagtekort;</div>

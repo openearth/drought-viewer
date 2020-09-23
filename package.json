@@ -16,6 +16,7 @@
     "mapbox-gl": "^1.11.1",
     "ramda": "^0.26.1",
     "vue": "^2.6.10",
+    "vue-range-component": "^1.0.3",
     "vue-range-slider": "^0.6.0",
     "vue-router": "^3.1.3",
     "vue-super-slider": "^0.3.1",

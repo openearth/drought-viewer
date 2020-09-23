@@ -44,11 +44,13 @@ export default {
     REMOVE_RASTER_LAYER(state, id) {
       state.rasterLayers = state.rasterLayers.filter(layer => layer.id !== id);
     },
+    REMOVE_ALL_LAYERS(state) {
+      state.rasterLayers = state.rasterLayers=[];
+    },
     SET_ACTIVE_FEATURE(state, feature) {
       state.activeFeature = Object.freeze(feature);
 
     },
-    //change this state when Get Section button is pressed from GeoModel tab
     SET_REQUEST_DATA(state, requestData) {
       state.requestData = requestData;
     },

@@ -9,12 +9,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@deltares/vue-components": "^0.3.0",
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@voorhoede/deltares-vuetify-theme": "^1.0.4",
+    "@vue/composition-api": "^1.0.0-rc.6",
     "axios": "^0.19.0",
     "core-js": "^3.3.2",
     "mapbox-gl": "^1.11.1",
     "ramda": "^0.26.1",
+    "sortablejs": "^1.13.0",
     "vue": "^2.6.10",
     "vue-range-component": "^1.0.3",
     "vue-range-slider": "^0.6.0",

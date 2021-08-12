@@ -27,7 +27,7 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legendScroll';
 import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/tooltip';
-
+import moment from 'moment'
 import _ from 'lodash'
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
@@ -100,9 +100,10 @@ export default {
     },
     fetchDetails() {
       const { id } = this.feature;
-      console.log(this.feature)
       const end = '2021-08-13T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
       const start = '2021-07-23T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
+      // const end = moment().add(1, 'days').format('YYYY-MM-DDTHH:mm:ssZ') //TODO: use something like this instead
+      // const start = moment().subtract(10, 'days').format('YYYY-MM-DDTHH:mm:ssZ') //TODO: use something like this instead
       const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN']
 
       this.options.series = []

@@ -82,10 +82,10 @@ export default {
     options() {
       return {
         options: {
-        barColor: '#444',
-        barColorActive: '#337ab7',
-        prefix: '$'
-      }
+          barColor: '#444',
+          barColorActive: '#337ab7',
+          prefix: '$'
+        }
       };
     }
   },
@@ -94,12 +94,10 @@ export default {
     addLayer(layer, time_stamp) {
       const wmsLayer = buildWmsLayer(layer, time_stamp);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
-
     },
 
     removeLayer(layerId) {
       this.$store.commit('mapbox/REMOVE_RASTER_LAYER', layerId);
-
     },
 
     formatIdToLabel(id) {

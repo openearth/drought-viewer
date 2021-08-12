@@ -6,6 +6,7 @@
       :map-style="mapConfig.style"
       :center="mapConfig.center"
       :zoom="mapConfig.zoom"
+      :min-zoom="mapConfig.zoom"
       @mb-created="onMapCreated"
       id="map"
       ref="map"
@@ -89,7 +90,7 @@ export default {
       this.$root.map = map;
       map.on('load', ()  => {
         this.$root.mapLoaded = true;
-        this.fakeRequestToBuildLayer ()
+        this.fakeRequestToBuildLayer ();
        });
     },
     fitToBounds() {
@@ -118,12 +119,7 @@ export default {
     layerClick(e) {
       var features = this.$root.map.queryRenderedFeatures(e.point, { layers: [e.features[0].layer.source] });
       var feature = features[0];
-      const layerId = feature.layer.id;
-      const { locationkey } = feature.properties;
-      this.$store.commit('mapbox/SET_ACTIVE_FEATURE', {
-        layerId,
-        locationkey
-      });
+      this.$store.commit('mapbox/SET_ACTIVE_FEATURE', feature.properties);
     }
   }
 };

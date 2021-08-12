@@ -23,29 +23,13 @@
       <v-card-text>
         N.B. Deze kaarten worden elke week geüpdatet.
       </v-card-text>
-    <v-sheet class="pa-5">
-    <v-treeview
-      selectable
-      rounded
-      hoverable
-      transition
-      on-icon='mdi-checkbox-multiple-marked-circle'
-      off-icon = 'mdi-circle-outline'
-      color="blue"
-      dense
-      :items="items"
-      v-model="visibleLayers"
-    ></v-treeview>
-    </v-sheet>
-
-  </div>
+    </div>
 </template>
 
 <script>
-import arrayDiff from '@/lib/get-arrays-difference';
-import { formatIdToLabel } from '@/lib/format-id-to-label';
-import buildWmsLayer from '@/lib/build-wms-layer';
 import { tab3, items_tab3 } from "../../../config/datalayers-config";
+
+const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
 export default {
   data: () => ({
@@ -56,52 +40,55 @@ export default {
     tabname() {
       return tab3;
   }},
-
+  mounted() {
+    this.addLocationsLayer();
+  },
   methods: {
-    addLayer(layer, time_stamp) {
-      const wmsLayer = buildWmsLayer(layer, time_stamp);
-      console.log("1",wmsLayer)
-      this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+    addLocationsLayer() {
+      const locationsUrl = `${defaultUrl}/rest/fewspiservice/v1/locations?documentFormat=PI_JSON`;
+      fetch(locationsUrl)
+        .then(res => {
+          return res.json();
+        })
+        .then(response => {
+          console.log(response);
+          const locations = response.locations;
+          const features = locations.map(feat => {
+            return     {
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [parseFloat(feat.lon), parseFloat(feat.lat)]
+              },
+              id: feat.locationId,
+              properties: {
+                id: feat.locationId,
+                shortName: feat.shortName
+              }
+            };
+          });
+          const source = {
+            type: 'FeatureCollection',
+            features: features
+          };
 
-    },
-
-    removeLayer(layerId) {
-      this.$store.commit('mapbox/REMOVE_RASTER_LAYER', layerId);
-
-    },
-
-    formatIdToLabel(id) {
-      return formatIdToLabel(id);
-    }
-   },
-
-  watch: {
-    visibleLayers(newArray, oldArray) {
-      const removeLayerId = newArray.length < oldArray.length;
-      if(removeLayerId) {
-        const layerToRemoveId = arrayDiff(oldArray, newArray)[0];
-        this.removeLayer(layerToRemoveId);
-        this.$store.commit('mapbox/SET_LEGEND_LAYER', null);
-      }
-      else {
-        const layerToAddId = arrayDiff(newArray, oldArray)[0];
-        var layerToAdd;
-        for (var i=0; i < this.items.length; i++) {
-          console.log('loop',this.items.length)
-          var child = this.items[i].children;
-          console.log('loop2',child)
-          for (var m=0; m < child.length; m++) {
-            console.log('loop3',child.length)
-            if (child[m].id == layerToAddId){
-               layerToAdd = child[m];
+          const mapLayer = {
+            id: 'locations',
+            source: {
+              data: source,
+              type: 'geojson',
+            },
+            type:'circle',
+            layout: {},
+            paint: {
+              'circle-radius': 5,
+              "circle-opacity" : 0.7,
+              'circle-color': '#54b04a'
             }
-          }
-        }
-        // const layerToAdd = layers_to_show.find(({ id }) => id === layerToAddId);
-        console.log(layerToAdd)
-        this.addLayer(layerToAdd);
-        this.$store.commit('mapbox/SET_LEGEND_LAYER', layerToAdd.layer);
-      }
+          };
+
+          this.$store.commit('mapbox/ADD_GEOJSON_LAYER', mapLayer);
+        });
     }
   }
 };

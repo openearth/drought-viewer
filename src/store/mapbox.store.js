@@ -49,7 +49,6 @@ export default {
     },
     SET_ACTIVE_FEATURE(state, feature) {
       state.activeFeature = Object.freeze(feature);
-
     },
     SET_REQUEST_DATA(state, requestData) {
       state.requestData = requestData;

@@ -7,7 +7,7 @@ export const MAP_CENTER = [
   CENTER_LATITUDE
 ];
 
-export const MAP_ZOOM = 6.5;
+export const MAP_ZOOM = 8;
 
 export const MAP_BASELAYERS = [
   'light',

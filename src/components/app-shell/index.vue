@@ -25,16 +25,16 @@
         style="500px"
         v-model="selectedTab"
       >
-        <v-tab :to="{ name: 'intro' }" >
+        <v-tab :to="{ name: 'zomer' }" >
           {{tab1}}
         </v-tab>
-        <v-tab :to="{ name: 'zommer' }" >
+        <v-tab :to="{ name: 'maandelijks' }" >
           {{tab2}}
         </v-tab>
-        <v-tab :to="{ name: 'maandelijk' }">
+        <v-tab :to="{ name: 'tijdreeksen' }">
           {{tab3}}
         </v-tab>
-        <v-tab :to="{ name: 'tijdreeksen' }">
+        <v-tab :to="{ name: 'intro' }">
           {{tab4}}
         </v-tab>
 
@@ -50,6 +50,7 @@
       <feature-details
         v-if="!!activeFeature"
         :feature="activeFeature"
+        :parameters="parameters"
       />
       <requestData
         v-if="!!requestData"
@@ -70,11 +71,13 @@ import requestData from '@/components/transect-popup';
 import RiskLegend from '@/components/legend';
 import { app_name,tab1,tab2,tab3,tab4} from "../../../config/datalayers-config.js";
 
+const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
+
 export default {
   data: () => ({
-    selectedTab:false
+    selectedTab: false,
+    parameters: ''
   }),
-
 
   components: {
     Sidebar,
@@ -83,7 +86,6 @@ export default {
     FeatureDetails,
     requestData,
     RiskLegend
-
   },
 
   computed: {
@@ -110,11 +112,26 @@ export default {
     },
      legendLayer() {
       return this.$store.getters['mapbox/legendLayer'];
-    }
+    },
   },
-
   mounted () {
     this.selectedTab = "first";
+    this.getParameters();
+  },
+  methods: {
+    getParameters() {
+      fetch(`${defaultUrl}/rest/fewspiservice/v1/archive/parameters?documentFormat=PI_JSON`)
+        .then(res => {
+          return res.json();
+        })
+        .then(response => {
+          // TODO: uncomment this when fewspiservice is properly filled
+          this.parameters = response.parameters[0].parameterId;
+          // let parameters = response.parameters.map(param => param.parameterId)
+          // this.parameters = parameters.join(';')
+          console.log(response, this.parameters);
+        });
+    }
   }
 };
 </script>

@@ -17,22 +17,22 @@ const routes = [
   {
     path: '/intro',
     name: 'intro',
+    component: Tab4
+  },
+  {
+    path: '/zomer',
+    name: 'zomer',
     component: Tab1
   },
   {
-    path: '/zommer',
-    name: 'zommer',
+    path: '/maandelijks',
+    name: 'maandelijks',
     component: Tab2
-  },
-  {
-    path: '/maandelijk',
-    name: 'maandelijk',
-    component: Tab3
   },
   {
     path: '/tijdreeksen',
     name: 'tijdreeksen',
-    component: Tab4
+    component: Tab3
   },
 
 ];

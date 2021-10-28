@@ -6,7 +6,7 @@
       :map-style="mapConfig.style"
       :center="mapConfig.center"
       :zoom="mapConfig.zoom"
-      :min-zoom="mapConfig.zoom"
+      :max-zoom="mapConfig.maxZoom"
       @mb-created="onMapCreated"
       id="map"
       ref="map"
@@ -43,7 +43,7 @@
 <script>
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { MAP_CENTER, MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS} from '../../../config/constants';
+import { MAP_CENTER, MAP_ZOOM, MAX_MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYERS} from '../../../config/constants';
 import MapLayer from './map-layer';
 import MapControlBaselayer from './map-control-baselayer';
 // import MapControlFitbounds from './map-control-fitbounds';
@@ -70,6 +70,7 @@ export default {
       return {
         center: MAP_CENTER,
         zoom: MAP_ZOOM,
+        maxZoom: MAX_MAP_ZOOM,
         style: MAP_BASELAYER_DEFAULT.style
       };
     },

@@ -100,18 +100,18 @@ export default {
     },
     fetchDetails() {
       const { id } = this.feature;
-      const end = '2021-08-13T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
-      const start = '2021-07-23T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
-      // const end = moment().add(1, 'days').format('YYYY-MM-DDTHH:mm:ssZ') //TODO: use something like this instead
-      // const start = moment().subtract(10, 'days').format('YYYY-MM-DDTHH:mm:ssZ') //TODO: use something like this instead
-      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN']
+      // const end = '2021-08-13T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
+      // const start = '2021-07-23T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
+      const end = moment().add(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
+      const start = moment().subtract(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
+      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics']
 
       this.options.series = []
       this.options.title.text = `Grondwaterstanden - ${id}`;
       this.options.legend.data = parameters;
 
       parameters.forEach(parameter => {
-        const url = `${defaultUrl}/rest/fewspiservice/v1/timeseries?documentFormat=PI_JSON&filterId=Grondwaterstanden_webservice&moduleInstanceIds=${parameter}&locationIds=${id}&startTime=${start}&endTime=${end}&convertDatum=false&useDisplayUnits=false&showThresholds=false&omitMissing=true`;
+        const url = `${defaultUrl}/rest/fewspiservice/v1/timeseries?documentFormat=PI_JSON&filterId=Grondwaterstanden_webservice&moduleInstanceIds=${parameter}&locationIds=${id}&startTime=${start}Z&endTime=${end}Z&convertDatum=false&useDisplayUnits=true&showThresholds=false&omitMissing=true`;
         fetch(url)
           .then((res) => {
             return res.json();

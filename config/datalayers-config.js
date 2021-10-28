@@ -8,14 +8,14 @@ const tab4 = "Achtergrond informatie";
 
 //agree on fixed date for the summer map
 const items_tab1 = [
-      { id: '1', name: 'Zomergrondwaterstand droog' , layer: 'summerLG3_Scenario_droog_tracking', time_stamp: '2021-08-04T00:00:00.000Z'},
-      { id: '2', name: 'Zomergrondwaterstand gemiddeld' , layer: 'summerLG3_Scenario_median_tracking', time_stamp: '2021-07-18T00:00:00.000Z'},
-      { id: '3', name: 'Zomergrondwaterstand nat' , layer: 'summerLG3_Scenario_nat_tracking', time_stamp: '2021-07-17T00:00:00.000Z'}
+      { id: '1', name: 'Zomergrondwaterstand droog' , layer: 'summerLG3_Scenario_droog'},
+      { id: '2', name: 'Zomergrondwaterstand gemiddeld' , layer: 'summerLG3_Scenario_median'},
+      { id: '3', name: 'Zomergrondwaterstand nat' , layer: 'summerLG3_Scenario_nat'}
     ]
   ;
 
 //year needs to come from current date
-const available_months = ["April", "Mei", "Juni", "Juli", "Aug", "Sept"]
+const available_months = ["April", "Mei", "Juni", "Juli", "Aug", "Sept", "Okt"]
 const months_tab2 = [
   {
     id: 1,
@@ -27,7 +27,7 @@ const months_tab2 = [
       {id: '5', name: "Juli", layer: 'GWmonthly_Scenario_droog', time_stamp: '2021-07-01T00:00:00.000Z' },
       {id: '6', name: "Augustus", layer: 'GWmonthly_Scenario_droog', time_stamp: '2021-08-01T00:00:00.000Z' },
       {id: '7', name: "September", layer: 'GWmonthly_Scenario_droog', time_stamp: '2021-09-01T00:00:00.000Z' },
-      // {id: '8', name: "Oktober", layer: 'monthly_scenario_droog', time_stamp: '2021-10-01T00:00:00.000Z' },
+      {id: '8', name: "Oktober", layer: 'monthly_scenario_droog', time_stamp: '2021-10-01T00:00:00.000Z' },
     ],
   },
   {
@@ -40,20 +40,20 @@ const months_tab2 = [
       {id: '13', name: "Juli", layer:'GWmonthly_Scenario_median', time_stamp: '2021-07-01T00:00:00.000Z' },
       {id: '14', name: "Augustus", layer: 'GWmonthly_Scenario_median', time_stamp: '2021-08-01T00:00:00.000Z' },
       {id: '15', name: "September", layer: 'GWmonthly_Scenario_median', time_stamp: '2021-09-01T00:00:00.000Z' },
-      // {id: '16', name: "Oktober", layer: 'monthly_scenario_gemiddeld', time_stamp: '2020-10-01T00:00:00.000Z' },
+      {id: '16', name: "Oktober", layer: 'monthly_scenario_gemiddeld', time_stamp: '2021-10-01T00:00:00.000Z' },
     ]
   },
   {
     id: 17,
     name:'Nat',
     children:[
-      {id: '18', name: "April", layer: 'GWmonthly_Scenario_nat', time_stamp: '2020-04-01T00:00:00.000Z' },
-      {id: '19', name: "Mei", layer: 'GWmonthly_Scenario_nat', time_stamp: '2020-05-01T00:00:00.000Z' },
-      {id: '20', name: "Juni", layer: 'GWmonthly_Scenario_nat', time_stamp: '2020-06-01T00:00:00.000Z' },
-      {id: '21', name: "Juli", layer:'GWmonthly_Scenario_nat', time_stamp: '2020-07-01T00:00:00.000Z' },
-      {id: '22', name: "Augustus", layer: 'GWmonthly_Scenario_nat', time_stamp: '2020-08-01T00:00:00.000Z' },
-      {id: '23', name: "September", layer: 'GWmonthly_Scenario_nat', time_stamp: '2020-09-01T00:00:00.000Z' },
-      // {id: '24', name: "Oktober", layer: 'monthly_scenario_nat', time_stamp: '2020-10-01T00:00:00.000Z' },
+      {id: '18', name: "April", layer: 'GWmonthly_Scenario_nat', time_stamp: '2021-04-01T00:00:00.000Z' },
+      {id: '19', name: "Mei", layer: 'GWmonthly_Scenario_nat', time_stamp: '2021-05-01T00:00:00.000Z' },
+      {id: '20', name: "Juni", layer: 'GWmonthly_Scenario_nat', time_stamp: '2021-06-01T00:00:00.000Z' },
+      {id: '21', name: "Juli", layer:'GWmonthly_Scenario_nat', time_stamp: '2021-07-01T00:00:00.000Z' },
+      {id: '22', name: "Augustus", layer: 'GWmonthly_Scenario_nat', time_stamp: '2021-08-01T00:00:00.000Z' },
+      {id: '23', name: "September", layer: 'GWmonthly_Scenario_nat', time_stamp: '2021-09-01T00:00:00.000Z' },
+      {id: '24', name: "Oktober", layer: 'monthly_scenario_nat', time_stamp: '2021-10-01T00:00:00.000Z' },
     ]
   }
 ];

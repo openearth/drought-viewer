@@ -5,11 +5,14 @@
       class="layer-legend__image"
       alt="risk legend"
     >
+    <small>{{legendText}}</small>
   </div>
 </template>
 
 <script>
 import buildLegendUrl from '@/lib/build-legend-url';
+import { LEGEND_TEXT } from '../../config/constants';
+
 export default {
   props: {
     legendLayer: {
@@ -21,6 +24,11 @@ export default {
     legendUrl() {
       return buildLegendUrl(this.legendLayer);
     }
+  },
+  data() {
+    return {
+      legendText: LEGEND_TEXT
+    };
   }
 };
 </script>

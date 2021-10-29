@@ -4,7 +4,7 @@
       {{tabname}}
     </v-card-title>
       <v-card-text class="text-xs-center">
-          <div>De lage grondwaterstanden van de afgelopen jaren hebben negatieve gevolgen gehad voor de landbouw en natuur. Bij het nemen van maatregelen tegen droogte is het van belang om de ontwikkeling van het grondwater goed in te kunnen schatten.</div>
+        <div>De lage grondwaterstanden van de afgelopen jaren hebben negatieve gevolgen gehad voor de landbouw en natuur. Bij het nemen van maatregelen tegen droogte is het van belang om de ontwikkeling van het grondwater goed in te kunnen schatten.</div>
       </v-card-text>
 
       <v-card-text class="text-xs-center">
@@ -39,7 +39,7 @@ export default {
   computed:{
     tabname() {
       return tab3;
-  }},
+    }},
   mounted() {
     this.addLocationsLayer();
   },

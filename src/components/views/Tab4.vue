@@ -1,6 +1,5 @@
 <template>
   <div>
-
       <v-sheet class="mt-2">
 
           <v-img
@@ -30,7 +29,12 @@
         </v-card-text>
 
       </v-card-text>
-
+      <v-card-title>
+        Kaart actuele grondwaterstand
+      </v-card-title>
+      <v-card-text>
+        De laag die nu op de kaart zichtbaar is, toont de afwijking van de actuele grondwaterstand ten opzichte van de langjarig gemiddelde grondwaterstand van deze dag.
+      </v-card-text>
       <v-card-title >
         Achtergrondinformatie
       </v-card-title>
@@ -64,17 +68,56 @@
 </template>
 
 <script>
-import { tab4 } from "../../../config/datalayers-config";
+// import { formatIdToLabel } from '@/lib/format-id-to-label';
+import buildWmsLayer from '@/lib/build-wms-layer';
+import { tab4, items_tab4 } from "../../../config/datalayers-config";
+import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
+import _ from 'lodash';
+import moment from 'moment';
 
 export default {
   data: () => ({
     visibleLayers: [],
+    items: items_tab4
   }),
-  computed:{
+  computed: {
     tabname() {
       return tab4;
-  }},
+    }
+  },
+  mounted () {
+    const layerToAdd = this.items[0];
+    this.addLayer(layerToAdd);
+  },
+  methods: {
+    addLayer(layer) {
+      if (!_.get(layer, 'time_stamp')) {
+        const format = 'YYYY-MM-DDTHH:mm:ssZ';
+        const startTime = moment().format(format);
+        const endTime = moment().add(6, 'months').format(format);
+        const getCapabilitiesUrl = buildCapabilitiesUrl(layer, startTime, endTime);
+        fetch(getCapabilitiesUrl)
+          .then((res) => {
+            return res.json();
+          })
+          .then((response) => {
+            console.log(response);
+            const times = response.layers[0].times;
+            const time = times[times.length - 1];
+            layer.time_stamp = time;
+            const wmsLayer = buildWmsLayer(layer);
+            this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+          });
+      } else {
+        const wmsLayer = buildWmsLayer(layer);
+        this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+      }
+    },
 
+    removeLayer(layerId) {
+      this.$store.commit('mapbox/REMOVE_RASTER_LAYER', layerId);
+    },
+  }
 
 };
 </script>

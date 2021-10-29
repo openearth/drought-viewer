@@ -4,7 +4,7 @@
       {{tabname}}
     </v-card-title>
       <v-card-text class="text--primary">
-          <div>De lage grondwaterstanden van de afgelopen jaren hebben negatieve gevolgen gehad voor de landbouw en natuur. Bij het nemen van maatregelen tegen droogte is het van belang om de ontwikkeling van het grondwater goed in te kunnen schatten.</div>
+        <div>De lage grondwaterstanden van de <b>afgelopen jaren</b> hebben negatieve gevolgen gehad voor de landbouw en natuur. Bij het nemen van maatregelen tegen droogte is het van belang om de ontwikkeling van het grondwater goed in te kunnen schatten.</div>
       </v-card-text>
 
       <v-card-text>
@@ -17,7 +17,7 @@
 
 
     <v-sheet class="pl-12">
-       <v-switch :multiple="false"
+      <v-switch :multiple="false"
         v-for="layer in layers"
         :key="layer.id"
         :label="layer.name"
@@ -43,7 +43,10 @@
 <script>
 import formatIdToLabel from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
+import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
 import { tab1, items_tab1 } from "../../../config/datalayers-config";
+import moment from 'moment';
+import _ from 'lodash';
 
 export default {
   data: () => ({
@@ -59,15 +62,34 @@ export default {
     rasterLayers() {
       return this.$store.getters['mapbox/rasterLayers'];
     },
-     legendLayer() {
+    legendLayer() {
       return this.$store.getters['mapbox/legendLayer'];
     }
   },
 
   methods: {
     async addLayer(layer) {
-      const wmsLayer = buildWmsLayer(layer);
-      this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+      if (!_.get(layer, 'time_stamp')) {
+        const format = 'YYYY-MM-DDTHH:mm:ssZ';
+        const startTime = moment().format(format);
+        const endTime = moment().add(6, 'months').format(format);
+        const getCapabilitiesUrl = buildCapabilitiesUrl(layer, startTime, endTime);
+        fetch(getCapabilitiesUrl)
+          .then((res) => {
+            return res.json();
+          })
+          .then((response) => {
+            console.log(response);
+            const times = response.layers[0].times;
+            const time = times[times.length - 1];
+            layer.time_stamp = time;
+            const wmsLayer = buildWmsLayer(layer);
+            this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+          });
+      } else {
+        const wmsLayer = buildWmsLayer(layer);
+        this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+      }
     },
 
     removeLayer(layerId) {

@@ -79,12 +79,12 @@ export default {
 
   computed:{
     months () {
-      const months = Array.from(Array(6).keys())
+      const months = Array.from(Array(6).keys());
       const availableMonths = months.map((month) => {
-        console.log(moment().format('MMM'), month)
+        console.log(moment().format('MMM'), month);
 
-        return moment().add(month, 'months').format('MMM')
-      })
+        return moment().add(month, 'months').format('MMM');
+      });
       return availableMonths;
     },
     tabname() {

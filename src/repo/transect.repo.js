@@ -23,7 +23,7 @@ const transectRepo = {
 
     })
     // .then(({ data }) => convert.xml2js(data, { compact: true, spaces: 2}))
-    .then(data => formatDataIntoLinks(data, self));
+      .then(data => formatDataIntoLinks(data, self));
   },
 
 
@@ -32,7 +32,7 @@ function formatDataIntoLinks(data) {
   // 🐏
   // console.log(data)
   const formatLink = feature => {
-  const url = path([],feature);
+    const url = path([],feature);
     return {
       name: "Timeseries plot",
       url

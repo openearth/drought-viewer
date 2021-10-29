@@ -7,17 +7,17 @@ const featureDetailsRepo = {
 
   getReport(identifier, locationkey) {
     return baseRepo({
-        method: 'get',
-        params: {
-          request: 'execute',
-          service: 'WPS',
-          identifier,
-          version: '1.0.0',
-          datainputs: `locationid=${ locationkey }`
-        }
+      method: 'get',
+      params: {
+        request: 'execute',
+        service: 'WPS',
+        identifier,
+        version: '1.0.0',
+        datainputs: `locationid=${ locationkey }`
+      }
     })
-    .then(({ data }) => convert.xml2js(data, { compact: true, spaces: 2}))
-    .then(data => formatDataIntoLinks(data))
+      .then(({ data }) => convert.xml2js(data, { compact: true, spaces: 2}))
+      .then(data => formatDataIntoLinks(data))
     ;
   }
 

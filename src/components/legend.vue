@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       legendText: LEGEND_TEXT
-    }
+    };
   }
 };
 </script>

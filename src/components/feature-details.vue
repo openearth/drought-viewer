@@ -27,8 +27,8 @@ import 'echarts/lib/component/title';
 import 'echarts/lib/component/legendScroll';
 import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/tooltip';
-import moment from 'moment'
-import _ from 'lodash'
+import moment from 'moment';
+import _ from 'lodash';
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
@@ -102,11 +102,11 @@ export default {
       const { id } = this.feature;
       // const end = '2021-08-13T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
       // const start = '2021-07-23T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
-      const end = moment().add(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
-      const start = moment().subtract(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
-      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics']
+      const end = moment().add(6, 'months').format('YYYY-MM-DDTHH:mm:ss'); //TODO: use something like this instead
+      const start = moment().subtract(6, 'months').format('YYYY-MM-DDTHH:mm:ss'); //TODO: use something like this instead
+      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics'];
 
-      this.options.series = []
+      this.options.series = [];
       this.options.title.text = `Grondwaterstanden - ${id}`;
       this.options.legend.data = parameters;
 
@@ -128,7 +128,7 @@ export default {
             });
             this.hasLoaded = true;
           });
-      })
+      });
 
     },
 

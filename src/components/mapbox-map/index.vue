@@ -92,7 +92,7 @@ export default {
       map.on('load', ()  => {
         this.$root.mapLoaded = true;
         this.fakeRequestToBuildLayer ();
-       });
+      });
     },
     fitToBounds() {
       // @REFACTOR :: We do a simple flyto at the moment, we could also fit to actual bounds of layers
@@ -104,17 +104,17 @@ export default {
     async fakeRequestToBuildLayer() {
       const data = await getLocalJson(`provinces.json`);
       this.$root.map.addSource('provinces', {
-          'type': 'geojson',
-          'data': data
+        'type': 'geojson',
+        'data': data
       });
       this.$root.map.addLayer({
-          'id': 'wtf',
-          'type': 'line',
-          'source': 'provinces',
-          'layout': {},
-          'paint': {
+        'id': 'wtf',
+        'type': 'line',
+        'source': 'provinces',
+        'layout': {},
+        'paint': {
           'line-width': 1.5
-          }
+        }
       });
     },
     layerClick(e) {

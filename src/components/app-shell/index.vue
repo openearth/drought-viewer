@@ -15,8 +15,6 @@
        </v-toolbar-title>
 
       <welcome-dialog />
-
-
       <v-tabs
         background-color="primary"
         dark
@@ -110,7 +108,7 @@ export default {
     requestData() {
       return this.$store.getters['mapbox/requestData'];
     },
-     legendLayer() {
+    legendLayer() {
       return this.$store.getters['mapbox/legendLayer'];
     },
   },

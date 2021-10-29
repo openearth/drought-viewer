@@ -57,7 +57,10 @@
 <script>
 import { formatIdToLabel } from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
-import { tab2, months_tab2, available_months } from "../../../config/datalayers-config";
+import { tab2, months_tab2 } from "../../../config/datalayers-config";
+import moment from 'moment';
+
+moment.locale('nl');
 
 export default {
   data: () => ({
@@ -71,11 +74,19 @@ export default {
     sliderValue: 0,
     sliderValueVue:0,
     disabled:true,
-    monthName:"",
-    months: available_months
+    monthName:""
   }),
 
   computed:{
+    months () {
+      const months = Array.from(Array(6).keys())
+      const availableMonths = months.map((month) => {
+        console.log(moment().format('MMM'), month)
+
+        return moment().add(month, 'months').format('MMM')
+      })
+      return availableMonths;
+    },
     tabname() {
       return tab2;
     },
@@ -91,8 +102,11 @@ export default {
   },
 
   methods: {
-    addLayer(layer, time_stamp) {
-      const wmsLayer = buildWmsLayer(layer, time_stamp);
+    addLayer(layer) {
+      const format = 'YYYY-MM-DDTHH:mm:ssZ';
+      const time_stamp = moment().startOf('month').add(this.sliderValueVue, 'months').format(format);
+      layer.time_stamp = time_stamp;
+      const wmsLayer = buildWmsLayer(layer);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
     },
 
@@ -105,20 +119,18 @@ export default {
     },
 
     slidermethod() {
-        this.$store.commit('mapbox/REMOVE_ALL_LAYERS');
-        this.$store.commit('mapbox/SET_LEGEND_LAYER', null);
-        const layerToAdd= this.items[this.selectedScenario-1].children[this.sliderValueVue];
-        // console.log(layerToAdd)
-        this.addLayer(layerToAdd);
-        this.$store.commit('mapbox/SET_LEGEND_LAYER', layerToAdd.layer);
-      // }
+      this.$store.commit('mapbox/REMOVE_ALL_LAYERS');
+      this.$store.commit('mapbox/SET_LEGEND_LAYER', null);
+      const layerToAdd = this.items[0];
+      this.addLayer(layerToAdd);
+      this.$store.commit('mapbox/SET_LEGEND_LAYER', layerToAdd.layer);
     }
-   },
+  },
 
   watch: {
     selectedScenario(newScenario) {
       this.$store.commit('mapbox/REMOVE_ALL_LAYERS');
-      this.sliderValueVue=0;
+      // this.sliderValueVue=0;
       this.selectedScenario=newScenario;
       this.disabled= false;
     },

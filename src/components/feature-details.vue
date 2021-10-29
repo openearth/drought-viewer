@@ -1,5 +1,5 @@
 <template>
-  <v-card class="feature-details" min-width="400">
+  <v-card class="feature-details" min-width="600">
     <v-toolbar dense flat>
       <v-toolbar-title>
         {{ feature.locationkey }}
@@ -11,7 +11,10 @@
     </v-toolbar>
 
     <v-container>
-      <v-chart v-if="hasLoaded" :options="options" :autoresize="true"/>
+      <v-chart
+        v-if="hasLoaded"
+        :option="options"
+        :autoresize="true"/>
       <p v-else>Loading feature data...</p>
       <!-- <p v-else>No data available for this feature</p> -->
     </v-container>
@@ -19,16 +22,50 @@
 </template>
 
 <script>
-import ECharts from 'vue-echarts';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/polar';
-import 'echarts/lib/component/legend';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legendScroll';
-import 'echarts/lib/component/toolbox';
-import 'echarts/lib/component/tooltip';
-import moment from 'moment'
-import _ from 'lodash'
+import VChart from 'vue-echarts';
+
+// import ECharts modules manually to reduce bundle size
+import {
+  SVGRenderer,
+  CanvasRenderer
+} from 'echarts/renderers';
+import {
+  LineChart,
+  ScatterChart,
+  LinesChart
+} from 'echarts/charts';
+import {
+  GridComponent,
+  TooltipComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  DataZoomComponent,
+  TimelineComponent,
+  ToolboxComponent,
+  TitleComponent,
+  LegendComponent
+} from 'echarts/components';
+import { use } from 'echarts/core';
+use([
+  ScatterChart,
+  CanvasRenderer,
+  LineChart,
+  GridComponent,
+  TooltipComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  DataZoomComponent,
+  TimelineComponent,
+  LinesChart,
+  ToolboxComponent,
+  TitleComponent,
+  LegendComponent
+]);
+use([CanvasRenderer]);
+use([SVGRenderer]);
+
+import moment from 'moment';
+import _ from 'lodash';
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
@@ -43,7 +80,7 @@ export default {
     },
   },
   components: {
-    'v-chart': ECharts,
+    VChart,
   },
   data: () => ({
     featureDetails: [],
@@ -52,7 +89,7 @@ export default {
       toolbox: {
         feature: {
           dataZoom: {
-              yAxisIndex: 'none'
+            yAxisIndex: 'none'
           },
           restore: {},
           saveAsImage: {}
@@ -61,9 +98,16 @@ export default {
       title: {
         text: 'Grondwaterstanden',
       },
+      grid: {
+        left: '10%',
+        right: '15%',
+        bottom: '10%'
+      },
       legend: {
         type: 'scroll',
-        bottom: '0'
+        orient: 'vertial',
+        top: 50,
+        right: 10
       },
       tooltip: {
         trigger: 'axis',
@@ -72,43 +116,61 @@ export default {
         },
       },
       xAxis: {
-        type: 'category',
+        type: 'time',
+        axisLine: {
+          onZero: false,
+          show: false
+        },
+        splitLine: {
+          show: true
+        },
+        axisLabel: {
+          formatter: '{dd}-{MM}-{yy}'
+        }
       },
       yAxis: {
         type: 'value',
+        name: 'Grondwaterstand (m - maaiveld)',
+        nameLocation: 'middle',
+        nameRotate: 90,
+        nameGap: 30
       },
       series: [],
       animationDuration: 2000,
     },
   }),
 
-  computed: {
-    // htmlPlots() {
-    //   // console.log("html plots", this.featureDetails)
-    //   var result = this.featureDetails.filter(function (el) {
-    //     return el.id &&
-    //      el.name &&
-    //      el.url;
-    //     });
-    //   return result;
-    // },
-  },
-
   methods: {
     closeFeature() {
       this.$store.commit('mapbox/SET_ACTIVE_FEATURE', null);
     },
+    addToGraph(timeSerie, parameter) {
+      const events = _.get(timeSerie, 'events', []);
+      let data = events.map((event) => {
+        return [event.date, event.value];
+      });
+      data = data.sort((colA, colB) => {
+        return moment(colA[0]) - moment(colB[0]);
+      });
+      const name = _.get(timeSerie, 'header.qualifierId[0]', parameter);
+      this.options.legend.data.push(name);
+      this.options.series.push({
+        name:  name,
+        data: data,
+        type: 'line',
+        symbol: 'none'
+      });
+      this.hasLoaded = true;
+    },
     fetchDetails() {
       const { id } = this.feature;
-      // const end = '2021-08-13T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
-      // const start = '2021-07-23T00:00:00Z' // TODO: should be less hardcoded and dependent on the date
-      const end = moment().add(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
-      const start = moment().subtract(6, 'months').format('YYYY-MM-DDTHH:mm:ss') //TODO: use something like this instead
-      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics']
+      const end = moment().add(6, 'months').format('YYYY-MM-DDTHH:mm:ss');
+      const start = moment().subtract(6, 'months').format('YYYY-MM-DDTHH:mm:ss');
+      const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics'];
 
-      this.options.series = []
+      this.options.series = [];
       this.options.title.text = `Grondwaterstanden - ${id}`;
-      this.options.legend.data = parameters;
+      this.options.legend.data = [];
 
       parameters.forEach(parameter => {
         const url = `${defaultUrl}/rest/fewspiservice/v1/timeseries?documentFormat=PI_JSON&filterId=Grondwaterstanden_webservice&moduleInstanceIds=${parameter}&locationIds=${id}&startTime=${start}Z&endTime=${end}Z&convertDatum=false&useDisplayUnits=true&showThresholds=false&omitMissing=true`;
@@ -116,33 +178,30 @@ export default {
           .then((res) => {
             return res.json();
           })
-          .then((response) => {
-            const events = _.get(response, 'timeSeries[0].events', []);
-            const data = events.map((event) => {
-              return [event.date, event.value];
+          .then(response => {
+            response.timeSeries.forEach(serie => {
+              this.addToGraph(serie, parameter);
             });
-            this.options.series.push({
-              name: parameter,
-              data: data,
-              type: 'line'
-            });
-            this.hasLoaded = true;
+            if (parameter === 'Import_GroundwaterStatistics') {
+              // this.options.series.push({
+              //   name: 'confidence',
+              //   type: 'line',
+              //   data: data.map(function (item) {
+              //     return item.u - item.l;
+              //   }),
+              //   lineStyle: {
+              //     opacity: 0
+              //   },
+              //   areaStyle: {
+              //     color: '#ccc'
+              //   },
+              //   stack: 'confidence-band',
+              //   symbol: 'none'
+              // });
+            }
           });
-      })
-
-    },
-
-    // async fetchDetails() {
-    //   const { locationkey, layerId } = this.feature;
-    //   const wpsIdentifier = this.wpsDictionary[layerId];
-    //   try {
-    //     this.featureDetails = await featureDetailsRepo.getReport(wpsIdentifier, locationkey);
-    //     this.hasLoaded = true;
-    //   }
-    //   catch(err) {
-    //     console.error('Error getting feature XML: ', err);
-    //   }
-    // }
+      });
+    }
   },
 
   created() {
@@ -165,7 +224,7 @@ export default {
 }
 
 .echarts {
-  width: 400px;
+  width: 600px;
   height: 500px;
 }
 </style>

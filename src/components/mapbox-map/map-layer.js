@@ -35,6 +35,7 @@ export default {
 
     addLayer() {
       const map = this.getMap();
+      console.log('adding', this.options.id);
       map.addLayer(this.options, this.before);
 
 
@@ -101,6 +102,7 @@ export default {
         const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
+          console.log('remove', layerId)
           map.removeLayer(layerId);
           map.removeSource(layer.source);
           if(this.clickable) {

@@ -17,7 +17,7 @@
 
 
     <v-sheet class="pl-12">
-       <v-switch :multiple="false"
+      <v-switch :multiple="false"
         v-for="layer in layers"
         :key="layer.id"
         :label="layer.name"
@@ -62,21 +62,18 @@ export default {
     rasterLayers() {
       return this.$store.getters['mapbox/rasterLayers'];
     },
-     legendLayer() {
+    legendLayer() {
       return this.$store.getters['mapbox/legendLayer'];
     }
   },
 
   methods: {
     async addLayer(layer) {
-      console.log(layer);
       if (!_.get(layer, 'time_stamp')) {
         const format = 'YYYY-MM-DDTHH:mm:ssZ';
         const startTime = moment().format(format);
         const endTime = moment().add(6, 'months').format(format);
-        console.log(layer);
         const getCapabilitiesUrl = buildCapabilitiesUrl(layer, startTime, endTime);
-        console.log(getCapabilitiesUrl);
         fetch(getCapabilitiesUrl)
           .then((res) => {
             return res.json();

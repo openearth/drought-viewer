@@ -21,4 +21,4 @@ export const MAP_BASELAYERS = [
 
 export const MAP_BASELAYER_DEFAULT = MAP_BASELAYERS[0];
 
-export const LEGEND_TEXT = 'Kaart actuele grondwaterstand - Deze kaart toont de afwijking van de actuele grondwaterstand ten opzichte van de langjarig gemiddelde grondwaterstand van deze maand.'
+export const LEGEND_TEXT = 'Verschil t.o.v. langjarig (m)'

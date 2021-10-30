@@ -17,7 +17,7 @@
         </v-card-text>
 
       <v-row justify="center" class="pl-4 ml-4" >
-      <v-container fluid justify="center" class="pl-4 ml-4">
+      <v-container fluid justify="center" class="pl-4 ml-4" @click="slidermethod">
         <v-radio-group v-model="selectedScenario" :mandatory="false">
           <v-radio label="Scenario droog" value="1"></v-radio>
           <v-radio label="Scenario gemiddeld" value="2"></v-radio>
@@ -103,8 +103,8 @@ export default {
 
   methods: {
     addLayer(layer) {
-      const format = 'YYYY-MM-DDTHH:mm:ssZ';
-      const time_stamp = moment().startOf('month').add(this.sliderValueVue, 'months').format(format);
+      const format = 'YYYY-MM-DDTHH:mm:ss';
+      const time_stamp = `${moment().startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
       layer.time_stamp = time_stamp;
       const wmsLayer = buildWmsLayer(layer);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);

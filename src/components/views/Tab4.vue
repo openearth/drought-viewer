@@ -101,9 +101,9 @@ export default {
             return res.json();
           })
           .then((response) => {
-            console.log(response)
-            const layerRes = response.layers.find(l => l.groupName === layer.layer)
-            console.log(layerRes)
+            console.log(response);
+            const layerRes = response.layers.find(l => l.groupName === layer.layer);
+            console.log(layerRes);
             const times = layerRes.times;
             const time = times[times.length - 1];
             layer.time_stamp = time;

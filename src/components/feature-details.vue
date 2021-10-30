@@ -91,7 +91,6 @@ export default {
           dataZoom: {
             yAxisIndex: 'none'
           },
-          restore: {},
           saveAsImage: {}
         }
       },

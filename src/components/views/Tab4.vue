@@ -92,9 +92,9 @@ export default {
   methods: {
     addLayer(layer) {
       if (!_.get(layer, 'time_stamp')) {
-        const format = 'YYYY-MM-DDTHH:mm:ssZ';
-        const startTime = moment().format(format);
-        const endTime = moment().add(6, 'months').format(format);
+        const format = 'YYYY-MM-DDTHH:mm:ss';
+        const startTime = `${moment().format(format)}Z`;
+        const endTime = `${moment().add(6, 'months').format(format)}Z`;
         const getCapabilitiesUrl = buildCapabilitiesUrl(layer, startTime, endTime);
         fetch(getCapabilitiesUrl)
           .then((res) => {
@@ -102,7 +102,9 @@ export default {
           })
           .then((response) => {
             console.log(response);
-            const times = response.layers[0].times;
+            const layerRes = response.layers.find(l => l.groupName === layer.layer);
+            console.log(layerRes);
+            const times = layerRes.times;
             const time = times[times.length - 1];
             layer.time_stamp = time;
             const wmsLayer = buildWmsLayer(layer);

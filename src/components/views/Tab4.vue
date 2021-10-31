@@ -7,14 +7,17 @@
             contain
             src="~@/assets/img/dry.jpg"
           ></v-img>
-
+      <v-card-title>
+        Kaart actuele grondwaterstand
+      </v-card-title>
+      <v-card-text>
+        Deze kaart toont de afwijking van de actuele grondwaterstand ten opzichte van de langjarig gemiddelde grondwaterstand voor deze week (beide modelresultaten LHM).
+      </v-card-text>
       </v-sheet>
 
     <v-card-title>
       {{tabname}}
     </v-card-title>
-
-      <!-- <v-card-text class="text--primary"> -->
       <v-card-title>
         Webviewer
       </v-card-title>
@@ -28,12 +31,6 @@
           <div>3.	Het is komende zes maanden <strong>erg nat</strong> (scenario nat).</div>
         </v-card-text>
 
-      </v-card-text>
-      <v-card-title>
-        Kaart actuele grondwaterstand
-      </v-card-title>
-      <v-card-text>
-        De laag die nu op de kaart zichtbaar is, toont de afwijking van de actuele grondwaterstand ten opzichte van de langjarig gemiddelde grondwaterstand van deze dag.
       </v-card-text>
       <v-card-title >
         Achtergrondinformatie
@@ -91,6 +88,7 @@ export default {
   },
   methods: {
     addLayer(layer) {
+      let wmsLayer
       if (!_.get(layer, 'time_stamp')) {
         const format = 'YYYY-MM-DDTHH:mm:ss';
         const startTime = `${moment().format(format)}Z`;
@@ -101,19 +99,18 @@ export default {
             return res.json();
           })
           .then((response) => {
-            console.log(response);
             const layerRes = response.layers.find(l => l.groupName === layer.layer);
-            console.log(layerRes);
             const times = layerRes.times;
             const time = times[times.length - 1];
             layer.time_stamp = time;
-            const wmsLayer = buildWmsLayer(layer);
+            wmsLayer = buildWmsLayer(layer);
             this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
           });
       } else {
-        const wmsLayer = buildWmsLayer(layer);
+        wmsLayer = buildWmsLayer(layer);
         this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
       }
+      this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
     },
 
     removeLayer(layerId) {

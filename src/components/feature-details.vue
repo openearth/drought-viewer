@@ -129,7 +129,7 @@ export default {
       },
       yAxis: {
         type: 'value',
-        name: 'Grondwaterstand (m - maaiveld)',
+        name: 'Berekende grondwaterstanden (m + maaiveld)',
         nameLocation: 'middle',
         nameRotate: 90,
         nameGap: 30

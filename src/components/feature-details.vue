@@ -66,6 +66,7 @@ use([SVGRenderer]);
 
 import moment from 'moment';
 import _ from 'lodash';
+import { none } from 'ramda';
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
@@ -88,9 +89,7 @@ export default {
     options: {
       toolbox: {
         feature: {
-          dataZoom: {
-            yAxisIndex: 'none'
-          },
+          dataZoom: {},
           saveAsImage: {}
         }
       },
@@ -132,7 +131,8 @@ export default {
         name: 'Berekende grondwaterstanden (m + maaiveld)',
         nameLocation: 'middle',
         nameRotate: 90,
-        nameGap: 30
+        nameGap: 30,
+        scale: true
       },
       series: [],
       animationDuration: 2000,
@@ -143,7 +143,17 @@ export default {
     closeFeature() {
       this.$store.commit('mapbox/SET_ACTIVE_FEATURE', null);
     },
-    addToGraph(timeSerie, parameter) {
+    getSeriesLabel(timeSerie, parameter) {
+      const labelConversion = {
+        Scenario_MEDIAN: 'Median',
+        Scenario_DROOG: 'Droog',
+        Scenario_NAT: 'Nat',
+        LHMpost_Grid2Point_Historical: 'Historie',
+      }
+      const q =_.get(timeSerie, 'header.qualifierId[0]', parameter);
+      return labelConversion[q] || parameter
+    },
+    addLineToGraph(timeSerie, parameter) {
       const events = _.get(timeSerie, 'events', []);
       let data = events.map((event) => {
         return [event.date, event.value];
@@ -151,7 +161,7 @@ export default {
       data = data.sort((colA, colB) => {
         return moment(colA[0]) - moment(colB[0]);
       });
-      const name = _.get(timeSerie, 'header.qualifierId[0]', parameter);
+      const name = this.getSeriesLabel(timeSerie, parameter);
       this.options.legend.data.push(name);
       this.options.series.push({
         name:  name,
@@ -159,6 +169,41 @@ export default {
         type: 'line',
         symbol: 'none'
       });
+      this.hasLoaded = true;
+    },
+    addAreaToGraph(serieA, label, color=null) {
+      const eventsA = _.get(serieA, 'events', []);
+      let dataA = eventsA.map((event) => {
+        return [event.date, event.value];
+      });
+      dataA = dataA.sort((colA, colB) => {
+        return moment(colA[0]) - moment(colB[0]);
+      });
+
+      const series = {
+        name:  label,
+        data: dataA,
+        type: 'line',
+        symbol: 'none',
+        lineStyle: {
+          opacity: 0
+        },
+        z: -1
+      }
+      if (color) {
+        series['areaStyle'] = {
+          color: color,
+          origin: "start",
+          opacity: 0.3
+        }
+      } else {
+        series['areaStyle'] = {
+          color: 'white',
+          opacity: 1,
+          origin: "start"
+        }
+      }
+      this.options.series.push(series);
       this.hasLoaded = true;
     },
     fetchDetails() {
@@ -178,26 +223,25 @@ export default {
             return res.json();
           })
           .then(response => {
-            response.timeSeries.forEach(serie => {
-              this.addToGraph(serie, parameter);
-            });
+
             if (parameter === 'Import_GroundwaterStatistics') {
-              // this.options.series.push({
-              //   name: 'confidence',
-              //   type: 'line',
-              //   data: data.map(function (item) {
-              //     return item.u - item.l;
-              //   }),
-              //   lineStyle: {
-              //     opacity: 0
-              //   },
-              //   areaStyle: {
-              //     color: '#ccc'
-              //   },
-              //   stack: 'confidence-band',
-              //   symbol: 'none'
-              // });
+              const serie05 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P05')
+              const serie25 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P25')
+              const serie50 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P50')
+              const serie75 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P75')
+              const serie95 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P95')
+              this.addAreaToGraph(serie75, 'P75','#a3a3a3');
+              this.addAreaToGraph(serie25, 'P25');
+              this.addAreaToGraph(serie95, 'P95', '#ccc');
+              this.addAreaToGraph(serie05, 'P05');
+              this.addLineToGraph(serie50, 'P50');
+
+            } else {
+              response.timeSeries.forEach(serie => {
+                this.addLineToGraph(serie, parameter);
+              });
             }
+
           });
       });
     }

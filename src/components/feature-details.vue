@@ -98,14 +98,13 @@ export default {
       },
       grid: {
         left: '10%',
-        right: '15%',
-        bottom: '10%'
+        bottom: '20%'
       },
       legend: {
-        type: 'scroll',
-        orient: 'vertial',
-        top: 50,
-        right: 10
+        type: 'plain',
+        orient: 'horizontal',
+        bottom: 0,
+        right: 0
       },
       tooltip: {
         trigger: 'axis',
@@ -128,7 +127,7 @@ export default {
       },
       yAxis: {
         type: 'value',
-        name: 'Berekende grondwaterstanden (m + maaiveld)',
+        name: 'Grondwaterstand (m tov maaiveld)',
         nameLocation: 'middle',
         nameRotate: 90,
         nameGap: 30,
@@ -145,14 +144,28 @@ export default {
     },
     getSeriesLabel(timeSerie, parameter) {
       const labelConversion = {
-        Scenario_MEDIAN: 'Median',
-        Scenario_DROOG: 'Droog',
-        Scenario_NAT: 'Nat',
-        LHMpost_Grid2Point_Historical: 'Historie',
+        Scenario_MEDIAN: 'Scenario gemiddeld',
+        Scenario_DROOG: 'Scenario droog',
+        Scenario_NAT: 'Scenario nat',
+        LHMpost_Grid2Point_Historical: 'Afgelopen half jaar',
+        P50: 'Historisch gemiddelde'
       }
       const q =_.get(timeSerie, 'header.qualifierId[0]', parameter);
       return labelConversion[q] || parameter
     },
+
+    getSeriesColor(timeSerie, parameter) {
+      const labelConversion = {
+        Scenario_MEDIAN: '#91CC75',
+        Scenario_DROOG: '#FAC858',
+        Scenario_NAT: '#2998EC',
+        P50: '#000',
+        LHMpost_Grid2Point_Historical: "#0000C6"
+      }
+      const q =_.get(timeSerie, 'header.qualifierId[0]', parameter);
+      return labelConversion[q] || parameter
+    },
+
     addLineToGraph(timeSerie, parameter) {
       const events = _.get(timeSerie, 'events', []);
       let data = events.map((event) => {
@@ -162,16 +175,19 @@ export default {
         return moment(colA[0]) - moment(colB[0]);
       });
       const name = this.getSeriesLabel(timeSerie, parameter);
+      const color = this.getSeriesColor(timeSerie, parameter);
       this.options.legend.data.push(name);
       this.options.series.push({
         name:  name,
         data: data,
         type: 'line',
-        symbol: 'none'
+        symbol: 'none',
+        color: color,
+
       });
       this.hasLoaded = true;
     },
-    addAreaToGraph(serieA, label, color=null) {
+    addAreaToGraph(serieA, label, color=null, legend=false) {
       const eventsA = _.get(serieA, 'events', []);
       let dataA = eventsA.map((event) => {
         return [event.date, event.value];
@@ -188,7 +204,8 @@ export default {
         lineStyle: {
           opacity: 0
         },
-        z: -1
+        z: -1,
+        color: color
       }
       if (color) {
         series['areaStyle'] = {
@@ -202,6 +219,9 @@ export default {
           opacity: 1,
           origin: "start"
         }
+      }
+      if (legend === true) {
+        this.options.legend.data.push(label);
       }
       this.options.series.push(series);
       this.hasLoaded = true;
@@ -225,14 +245,14 @@ export default {
           .then(response => {
 
             if (parameter === 'Import_GroundwaterStatistics') {
-              const serie05 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P05')
-              const serie25 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P25')
-              const serie50 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P50')
-              const serie75 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P75')
-              const serie95 = response.timeSeries.find(serie => serie.header.parameterId === 'G.fmf.P95')
-              this.addAreaToGraph(serie75, 'P75','#a3a3a3');
+              const serie05 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P05')
+              const serie25 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P25')
+              const serie50 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P50')
+              const serie75 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P75')
+              const serie95 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P95')
+              this.addAreaToGraph(serie75, 'Historische bandbreedte (25% -  75%)','#a3a3a3', true);
               this.addAreaToGraph(serie25, 'P25');
-              this.addAreaToGraph(serie95, 'P95', '#ccc');
+              this.addAreaToGraph(serie95, 'Historische bandbreedte (5% -  95%)', '#ccc', true);
               this.addAreaToGraph(serie05, 'P05');
               this.addLineToGraph(serie50, 'P50');
 

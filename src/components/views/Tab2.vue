@@ -19,9 +19,7 @@
       <v-row justify="center" class="pl-4 ml-4" >
       <v-container fluid justify="center" class="pl-4 ml-4" @click="slidermethod">
         <v-radio-group v-model="selectedScenario" :mandatory="false">
-          <v-radio label="Scenario droog" value="1"></v-radio>
-          <v-radio label="Scenario gemiddeld" value="2"></v-radio>
-          <v-radio label="Scenario nat" value="3"></v-radio>
+          <v-radio v-for="item in items" :key="item.id" :label="item.name" :value="item.id"></v-radio>
         </v-radio-group>
       </v-container>
 
@@ -64,10 +62,6 @@ moment.locale('nl');
 
 export default {
   data: () => ({
-    scenarios:[
-      {id:1, name:"Scenario droog"},
-      {id:2, name:"Scenario gemiddeld"},
-      {id:3, name:"Scenario nat"}],
     visibleLayers: [],
     selectedScenario:[],
     items: months_tab2,
@@ -81,8 +75,6 @@ export default {
     months () {
       const months = Array.from(Array(6).keys());
       const availableMonths = months.map((month) => {
-        console.log(moment().format('MMM'), month);
-
         return moment().add(month, 'months').format('MMM');
       });
       return availableMonths;
@@ -103,9 +95,11 @@ export default {
 
   methods: {
     addLayer(layer) {
+      console.log(layer)
       const format = 'YYYY-MM-DDTHH:mm:ss';
-      const time_stamp = `${moment().startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
-      layer.time_stamp = time_stamp;
+      const timeStamp = `${moment().startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
+      layer.time_stamp = timeStamp;
+      console.log(timeStamp)
       const wmsLayer = buildWmsLayer(layer);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
     },
@@ -121,7 +115,7 @@ export default {
     slidermethod() {
       this.$store.commit('mapbox/REMOVE_ALL_LAYERS');
       this.$store.commit('mapbox/SET_LEGEND_LAYER', null);
-      const layerToAdd = this.items[0];
+      const layerToAdd = this.items.find(item => item.id === this.selectedScenario);
       this.addLayer(layerToAdd);
       this.$store.commit('mapbox/SET_LEGEND_LAYER', layerToAdd.layer);
     }

@@ -84,6 +84,7 @@ export default {
   },
   mounted () {
     const layerToAdd = this.items[0];
+    console.log(layerToAdd)
     this.addLayer(layerToAdd);
   },
   methods: {

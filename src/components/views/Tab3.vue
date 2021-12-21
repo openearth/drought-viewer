@@ -51,7 +51,6 @@ export default {
           return res.json();
         })
         .then(response => {
-          console.log(response);
           const locations = response.locations;
           const features = locations.map(feat => {
             return     {

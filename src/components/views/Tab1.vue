@@ -37,8 +37,9 @@
       </v-card-text>
 
       </div>
-      <v-card-text v-else>
-        Vanaf 1 februari worden hier de prognoses van de zomergrondwaterstanden voor dit jaar getoond.
+      <v-card-text  v-else>
+        Vanaf 1 februari worden hier de prognoses van de zomergrond-
+        waterstanden voor dit jaar getoond.
       </v-card-text>
   </div>
 </template>
@@ -68,8 +69,8 @@ export default {
       return this.$store.getters['mapbox/legendLayer'];
     },
     currentlySummer() {
-      const currentMonth = moment().month()
-      return currentMonth >= 2 && currentMonth <= 10
+      const currentMonth = moment().month();
+      return currentMonth >= 2 && currentMonth <= 10;
     }
   },
   methods: {
@@ -125,3 +126,8 @@ export default {
   }
 };
 </script>
+<style>
+.text {
+  text-align: left !important;;
+}
+</style>

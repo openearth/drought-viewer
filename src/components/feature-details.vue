@@ -9,12 +9,12 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
-
     <v-container>
       <v-chart
         v-if="hasLoaded"
         :option="options"
-        :autoresize="true"/>
+        :autoresize="true"
+      />
       <p v-else>Loading feature data...</p>
       <!-- <p v-else>No data available for this feature</p> -->
     </v-container>
@@ -66,7 +66,7 @@ use([SVGRenderer]);
 
 import moment from 'moment';
 import _ from 'lodash';
-import { none } from 'ramda';
+import { none, reject } from 'ramda';
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
@@ -92,9 +92,6 @@ export default {
           dataZoom: {},
           saveAsImage: {}
         }
-      },
-      title: {
-        text: 'Grondwaterstanden',
       },
       grid: {
         left: '10%',
@@ -149,9 +146,9 @@ export default {
         Scenario_NAT: 'Scenario nat',
         LHMpost_Grid2Point_Historical: 'Afgelopen half jaar',
         P50: 'Historisch gemiddelde'
-      }
+      };
       const q =_.get(timeSerie, 'header.qualifierId[0]', parameter);
-      return labelConversion[q] || parameter
+      return labelConversion[q] || parameter;
     },
 
     getSeriesColor(timeSerie, parameter) {
@@ -161,9 +158,9 @@ export default {
         Scenario_NAT: '#2998EC',
         P50: '#000',
         LHMpost_Grid2Point_Historical: "#0000C6"
-      }
+      };
       const q =_.get(timeSerie, 'header.qualifierId[0]', parameter);
-      return labelConversion[q] || parameter
+      return labelConversion[q] || parameter;
     },
 
     addLineToGraph(timeSerie, parameter) {
@@ -206,19 +203,19 @@ export default {
         },
         z: -1,
         color: color
-      }
+      };
       if (color) {
         series['areaStyle'] = {
           color: color,
           origin: "start",
           opacity: 0.3
-        }
+        };
       } else {
         series['areaStyle'] = {
           color: 'white',
           opacity: 1,
           origin: "start"
-        }
+        };
       }
       if (legend === true) {
         this.options.legend.data.push(label);
@@ -233,39 +230,58 @@ export default {
       const parameters = ['LHMpost_Grid2Point_Historical', 'LHMpost_Grid2Point_Scenario_DROOG', 'LHMpost_Grid2Point_Scenario_NAT', 'LHMpost_Grid2Point_Scenario_MEDIAN', 'Import_GroundwaterStatistics'];
 
       this.options.series = [];
-      this.options.title.text = `Grondwaterstanden - ${id}`;
       this.options.legend.data = [];
+      const requests = this.createRequests(parameters, id, end, start);
+      try {
+        Promise.all(requests)
+          .then((result) => this.getDataFromResponses(result));
+      }catch(err) {
+        console.log(err);
+      }
 
+
+  
+    },
+    createRequests(parameters, id, end, start) { 
+      let requests = [];
       parameters.forEach(parameter => {
         const url = `${defaultUrl}/rest/fewspiservice/v1/timeseries?documentFormat=PI_JSON&filterId=Grondwaterstanden_webservice&moduleInstanceIds=${parameter}&locationIds=${id}&startTime=${start}Z&endTime=${end}Z&convertDatum=false&useDisplayUnits=true&showThresholds=false&omitMissing=true`;
-        fetch(url)
-          .then((res) => {
-            return res.json();
-          })
-          .then(response => {
-
-            if (parameter === 'Import_GroundwaterStatistics') {
-              const serie05 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P05')
-              const serie25 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P25')
-              const serie50 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P50')
-              const serie75 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P75')
-              const serie95 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P95')
-              this.addAreaToGraph(serie75, 'Historische bandbreedte (25% -  75%)','#a3a3a3', true);
-              this.addAreaToGraph(serie25, 'P25');
-              this.addAreaToGraph(serie95, 'Historische bandbreedte (5% -  95%)', '#ccc', true);
-              this.addAreaToGraph(serie05, 'P05');
-              this.addLineToGraph(serie50, 'P50');
-
-            } else {
-              response.timeSeries.forEach(serie => {
-                this.addLineToGraph(serie, parameter);
-              });
-            }
-
-          });
+        const request = new Promise((resolve, reject) => {
+          fetch(url)
+            .then((res) => res.json())
+            .then((response) => resolve({ parameter, response }))
+            .catch((err) => reject(err)); 
+        });
+        requests.push(request);
       });
+      return requests;
+    },
+    getDataFromResponses(resposnes) {
+      resposnes.forEach(responseItem => {
+        this.createGraphData(responseItem);
+      });
+    },
+    createGraphData({parameter, response}) {
+      if (parameter === 'Import_GroundwaterStatistics') {
+        const serie05 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P05');
+        const serie25 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P25');
+        const serie50 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P50');
+        const serie75 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P75');
+        const serie95 = response.timeSeries.find(serie => serie.header.parameterId === 'G.mv.fmf.P95');
+        this.addAreaToGraph(serie75, 'Historische bandbreedte (25% -  75%)','#a3a3a3', true);
+        this.addAreaToGraph(serie25, 'P25');
+        this.addAreaToGraph(serie95, 'Historische bandbreedte (5% -  95%)', '#ccc', true);
+        this.addAreaToGraph(serie05, 'P05');
+        this.addLineToGraph(serie50, 'P50');
+
+      } else {
+        response.timeSeries.forEach(serie => {
+          this.addLineToGraph(serie, parameter);
+        });
+      }
     }
   },
+  
 
   created() {
     this.fetchDetails();
@@ -273,6 +289,7 @@ export default {
 
   watch: {
     feature() {
+      this.hasLoaded = false;
       this.fetchDetails();
     },
   },

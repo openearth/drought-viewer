@@ -97,7 +97,7 @@ export default {
   methods: {
     addLayer(layer) {
       const format = 'YYYY-MM-DDTHH:mm:ss';
-      const timeStamp = `${moment().startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
+      const timeStamp = `${moment().add(1,'months').startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
       layer.time_stamp = timeStamp;
       const wmsLayer = buildWmsLayer(layer);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);

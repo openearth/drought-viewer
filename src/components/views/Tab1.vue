@@ -86,7 +86,6 @@ export default {
             return res.json();
           })
           .then((response) => {
-            console.log(response);
             const times = response.layers[0].times;
             const time = times[times.length - 1];
             layer.time_stamp = time;

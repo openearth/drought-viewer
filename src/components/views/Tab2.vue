@@ -74,11 +74,10 @@ export default {
   computed:{
     months () {
       const months = Array.from(Array(6).keys());
-      console.log('months array', months);
-      const availableMonths = months.map((month) => {
+      const availableMonths = months.map((currentMonth) => {
+        const month = currentMonth + 1; 
         return moment().add(month, 'months').format('MMM');
       });
-      console.log('availableMonths', availableMonths);
       return availableMonths;
     },
     tabname() {

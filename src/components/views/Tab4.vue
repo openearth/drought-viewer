@@ -84,12 +84,11 @@ export default {
   },
   mounted () {
     const layerToAdd = this.items[0];
-    console.log(layerToAdd)
     this.addLayer(layerToAdd);
   },
   methods: {
     addLayer(layer) {
-      let wmsLayer
+      let wmsLayer;
       if (!_.get(layer, 'time_stamp')) {
         const format = 'YYYY-MM-DDTHH:mm:ss';
         const startTime = `${moment().format(format)}Z`;

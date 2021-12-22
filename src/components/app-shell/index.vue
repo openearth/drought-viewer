@@ -127,7 +127,6 @@ export default {
           this.parameters = response.parameters[0].parameterId;
           // let parameters = response.parameters.map(param => param.parameterId)
           // this.parameters = parameters.join(';')
-          console.log(response, this.parameters);
         });
     }
   }

@@ -35,7 +35,7 @@ export default {
 
     addLayer() {
       const map = this.getMap();
-      console.log('adding', this.options.id);
+
       map.addLayer(this.options, this.before);
 
 

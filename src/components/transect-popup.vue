@@ -59,7 +59,6 @@ export default {
         this.loading = true;
         this.wpsResponse = await transectRepo.getTransect(this.requestData);
         this.loading = false;
-        console.log( transectRepo.getTransect(this.requestData));
         if (this.wpsResponse[0].url == 'No data available for this area.'){
           this.no_data = true;
         }

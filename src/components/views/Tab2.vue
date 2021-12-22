@@ -74,7 +74,8 @@ export default {
   computed:{
     months () {
       const months = Array.from(Array(6).keys());
-      const availableMonths = months.map((month) => {
+      const availableMonths = months.map((currentMonth) => {
+        const month = currentMonth + 1; 
         return moment().add(month, 'months').format('MMM');
       });
       return availableMonths;
@@ -95,11 +96,9 @@ export default {
 
   methods: {
     addLayer(layer) {
-      console.log(layer)
       const format = 'YYYY-MM-DDTHH:mm:ss';
-      const timeStamp = `${moment().startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
+      const timeStamp = `${moment().add(1,'months').startOf('month').add(this.sliderValueVue, 'months').format(format)}Z`;
       layer.time_stamp = timeStamp;
-      console.log(timeStamp)
       const wmsLayer = buildWmsLayer(layer);
       this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
     },

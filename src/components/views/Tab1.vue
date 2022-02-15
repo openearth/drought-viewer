@@ -16,31 +16,31 @@
         <div>3.	Het is komende zes maanden <strong>erg nat</strong> (scenario nat).</div>
       </v-card-text>
     <div v-if="currentlySummer" >
-
-    <v-sheet class="pl-12">
-      <v-switch :multiple="false"
-        v-for="layer in layers"
-        :key="layer.id"
-        :label="layer.name"
-        :value="layer.id"
-        v-model="visibleLayers"
-        inset
-        hide-details
-        />
-    </v-sheet>
-      <v-card-text>
-        Deze drie kaarten tonen, voor ieder van de drie scenario’s, de afwijking van de berekende zomergrondwaterstand ten opzichte van de langjarig gemiddelde zomergrondwaterstand.
-        De zomergrondwaterstand wordt bepaald als het gemiddelde van de drie laagste grondwaterstanden geregistreerd in de periode van 1 april tot 1 oktober. Hierbij worden alleen grondwaterstanden op de 14de en 28ste dag van de maand meegenomen.
-      </v-card-text>
-      <v-card-text>
-        N.B. Deze kaarten worden elke week geüpdatet. Aan het eind van de zomer is de zomergrondwaterstand niet langer een blik op de toekomst maar een terugblik. Alle drie de kaarten geven dan dezelfde informatie.
-      </v-card-text>
+     <!--  <div> -->
+      <v-sheet class="pl-12">
+        <v-switch :multiple="false"
+          v-for="layer in layers"
+          :key="layer.id"
+          :label="layer.name"
+          :value="layer.id"
+          v-model="visibleLayers"
+          inset
+          hide-details
+          />
+      </v-sheet>
+        <v-card-text>
+          Deze drie kaarten tonen, voor ieder van de drie scenario’s, de afwijking van de berekende zomergrondwaterstand ten opzichte van de langjarig gemiddelde zomergrondwaterstand.
+          De zomergrondwaterstand wordt bepaald als het gemiddelde van de drie laagste grondwaterstanden geregistreerd in de periode van 1 april tot 1 oktober. Hierbij worden alleen grondwaterstanden op de 14de en 28ste dag van de maand meegenomen.
+        </v-card-text>
+        <v-card-text>
+          N.B. Deze kaarten worden elke week geüpdatet. Aan het eind van de zomer is de zomergrondwaterstand niet langer een blik op de toekomst maar een terugblik. Alle drie de kaarten geven dan dezelfde informatie.
+        </v-card-text>
 
       </div>
-      <v-card-text  v-else>
+<!--       <v-card-text  v-else>
         Vanaf 1 februari worden hier de prognoses van de zomergrond-
         waterstanden voor dit jaar getoond.
-      </v-card-text>
+      </v-card-text> -->
   </div>
 </template>
 
@@ -70,7 +70,10 @@ export default {
     },
     currentlySummer() {
       const currentMonth = moment().month();
-      return currentMonth >= 2 && currentMonth <= 10;
+      /*      console.log('currentMonth', currentMonth);
+      console.log('currentMonth >= 2 && currentMonth <= 10', currentMonth >= 2 && currentMonth <= 10)
+      console.log('currentMonth >= 2') */
+      return currentMonth >= 1 && currentMonth <= 9;
     }
   },
   methods: {

@@ -30,6 +30,7 @@
       />
 
       <!-- Raster layers -->
+
       <map-layer
         v-for="layer in rasterLayers"
         :key="layer.id"

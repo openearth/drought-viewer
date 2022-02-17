@@ -70,7 +70,6 @@ import buildWmsLayer from '@/lib/build-wms-layer';
 import { tab4, items_tab4 } from "../../../config/datalayers-config";
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
 import _ from 'lodash';
-import moment from 'moment';
 
 export default {
   data: () => ({
@@ -87,32 +86,30 @@ export default {
     this.addLayer(layerToAdd);
   },
   methods: {
+    //TODO: move it in lib as function as is used in multiple components
     addLayer(layer) {
       let wmsLayer;
       if (!_.get(layer, 'time_stamp')) {
-        const format = 'YYYY-MM-DDTHH:mm:ss';
-        const startTime = `${moment().format(format)}Z`;
-        const endTime = `${moment().add(6, 'months').format(format)}Z`;
-        const getCapabilitiesUrl = buildCapabilitiesUrl(layer, startTime, endTime);
+        const getCapabilitiesUrl = buildCapabilitiesUrl(layer);
         fetch(getCapabilitiesUrl)
           .then((res) => {
             return res.json();
           })
           .then((response) => {
-            const layerRes = response.layers.find(l => l.groupName === layer.layer);
+            const layerRes = response.layers.find(l => l.name === layer.layer);
             const times = layerRes.times;
             const time = times[times.length - 1];
             layer.time_stamp = time;
             wmsLayer = buildWmsLayer(layer);
             this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+            this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
           });
       } else {
         wmsLayer = buildWmsLayer(layer);
         this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+        this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
       }
-      this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
     },
-
     removeLayer(layerId) {
       this.$store.commit('mapbox/REMOVE_RASTER_LAYER', layerId);
     },

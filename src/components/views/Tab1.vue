@@ -70,9 +70,6 @@ export default {
     },
     currentlySummer() {
       const currentMonth = moment().month();
-      /*      console.log('currentMonth', currentMonth);
-      console.log('currentMonth >= 2 && currentMonth <= 10', currentMonth >= 2 && currentMonth <= 10)
-      console.log('currentMonth >= 2') */
       return currentMonth >= 1 && currentMonth <= 9;
     }
   },

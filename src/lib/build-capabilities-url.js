@@ -5,7 +5,7 @@ export default (layer, startTime, endTime) => buildGeoserverUrl({
   service: 'WMS',
   format: 'application/json',
   onlyHeaders: false,
-  startForecastTime: startTime,
-  endForecastTime: endTime,
+  ...(startTime) && {startForecastTime: startTime},
+  ...(endTime) && {endForecastTime: endTime},
   layers: layer.layer
 });

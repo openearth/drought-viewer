@@ -14,7 +14,6 @@ const transectRepo = {
       transect: lineCoordinates,
       outputId: 'output_html'
     });
-    // console.log(template)
     return baseRepo({
       method: 'post',
       data: template,

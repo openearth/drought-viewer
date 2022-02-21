@@ -23,13 +23,13 @@ const months_tab2 = [
   {id: '6', name: "Scenario nat", layer: 'GWmonthly_Scenario_nat'},
 
 ];
-
+//TODO: tab_3 and tab_4 will show the same map.the external historical one. 
 const items_tab3 = [
-
+  { id: '25', name: 'Huidige kaart' , layer: 'GWmonthly_ExternalHistorical'}
 ];
 
 const items_tab4 = [
-  { id: '25', name: 'Huidige kaart' , layer: 'LHMpost_GWverschil_Masked_Historical'}
+  { id: '25', name: 'Huidige kaart' , layer: 'GWmonthly_ExternalHistorical'}
 ];
 
 export { app_name, tab1, tab2, tab3, tab4, items_tab1, items_tab3, items_tab4, months_tab2};

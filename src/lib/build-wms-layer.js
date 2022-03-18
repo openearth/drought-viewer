@@ -27,6 +27,7 @@ export default ({ url=defaultUrl, id, layer, time_stamp ,style='', paint={}, til
     id,
     layer,
     type: 'raster',
+    time: time_stamp,
     source: {
       type: 'raster',
       tiles: [tile],

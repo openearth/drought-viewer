@@ -40,6 +40,7 @@
     </v-app-bar>
 
     <v-content>
+      <map-title v-if="activeLayerTimestamp" :title="activeLayerTimestamp"></map-title>
       <risk-legend
         v-if="legendLayer"
         :legendLayer="legendLayer"
@@ -67,6 +68,7 @@ import WelcomeDialog from './welcome-dialog';
 import FeatureDetails from '@/components/feature-details';
 import requestData from '@/components/transect-popup';
 import RiskLegend from '@/components/legend';
+import MapTitle from '@/components/map-title';
 import { app_name,tab1,tab2,tab3,tab4} from "../../../config/datalayers-config.js";
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
@@ -83,7 +85,8 @@ export default {
     WelcomeDialog,
     FeatureDetails,
     requestData,
-    RiskLegend
+    RiskLegend,
+    MapTitle,
   },
 
   computed: {
@@ -111,6 +114,10 @@ export default {
     legendLayer() {
       return this.$store.getters['mapbox/legendLayer'];
     },
+    activeLayerTimestamp() {
+      return this.$store.getters['mapbox/activeLayerTimestamp'];
+    }
+    
   },
   mounted () {
     this.selectedTab = "first";

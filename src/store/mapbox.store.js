@@ -14,7 +14,17 @@ export default {
     rasterLayers: state => state.rasterLayers,
     activeFeature: state => state.activeFeature,
     requestData: state => state.requestData,
-    legendLayer: state => state.legendLayer
+    legendLayer: state => state.legendLayer,
+    activeLayerTimestamp: getters => {
+      const rasterLayers = getters.rasterLayers;
+      if (!rasterLayers.length) {
+        return;
+      }
+      const activeLayer = rasterLayers[rasterLayers.length -1];
+    
+      const { time } = activeLayer;
+      return time.substr(0, 10);
+    }
   },
 
   mutations: {
@@ -57,13 +67,16 @@ export default {
     SET_LEGEND_LAYER(state,layer) {
       state.legendLayer = layer;
     },
-
+    SET_ACTIVE_LAYER_TIMESTAMP(state, timestamp) {
+      state.activeLayerTimestamp = timestamp;
+    },
     RESET_ALL(state) {
       state.geoJsonLayers = [];
       state.rasterLayers = [];
       state.activeFeature = null;
       state.requestData = null;
       state.legendLayer = null;
+      state.activeLayerTimestamp = null;
     },
 
 

@@ -1,7 +1,7 @@
 
 import moment from 'moment';
 
-const app_name = "Droogte Radar Deltares";
+const app_name = "Droogteradar";
 
 const tab1 = "Zomergrondwaterstanden";
 const tab2 = "Maandelijkse grondwaterstanden";

@@ -55,7 +55,7 @@
 <script>
 import { formatIdToLabel } from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
-import { tab2, months_tab2 } from "../../../config/datalayers-config";
+import { maandelijksTab, months_maandelijksTab } from "../../../config/datalayers-config";
 import moment from 'moment';
 
 moment.locale('nl');
@@ -64,7 +64,7 @@ export default {
   data: () => ({
     visibleLayers: [],
     selectedScenario:[],
-    items: months_tab2,
+    items: months_maandelijksTab,
     sliderValue: 0,
     sliderValueVue:0,
     disabled:true,
@@ -81,7 +81,7 @@ export default {
       return availableMonths;
     },
     tabname() {
-      return tab2;
+      return maandelijksTab;
     },
     options() {
       return {

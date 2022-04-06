@@ -48,19 +48,19 @@
 import formatIdToLabel from '@/lib/format-id-to-label';
 import buildWmsLayer from '@/lib/build-wms-layer';
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
-import { tab1, items_tab1 } from "../../../config/datalayers-config";
+import { zomerTab, items_zomerTab } from "../../../config/datalayers-config";
 import moment from 'moment';
 import _ from 'lodash';
 
 export default {
   data: () => ({
-    layers: items_tab1,
+    layers: items_zomerTab,
     visibleLayers: null,
   }),
 
   computed: {
     tabname() {
-      return tab1;
+      return zomerTab;
     },
     rasterLayers() {
       return this.$store.getters['mapbox/rasterLayers'];

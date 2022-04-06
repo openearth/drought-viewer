@@ -2,37 +2,37 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
 
-import Tab1 from '../components/views/Tab1';
-import Tab2 from '../components/views/Tab2';
-import Tab3 from '../components/views/Tab3';
-import Tab4 from '../components/views/Tab4';
+import zomerTab from '../components/views/zomerTab';
+import maandelijksTab from '../components/views/maandelijksTab';
+import tijdreeksenTab from '../components/views/tijdreeksenTab';
+import actueleTab from '../components/views/actueleTab';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    redirect: '/intro'
+    redirect: '/actuele'
   },
   {
-    path: '/intro',
-    name: 'intro',
-    component: Tab4
+    path: '/actuele',
+    name: 'actuele',
+    component: actueleTab
   },
   {
     path: '/zomer',
     name: 'zomer',
-    component: Tab1
+    component: zomerTab
   },
   {
     path: '/maandelijks',
     name: 'maandelijks',
-    component: Tab2
+    component: maandelijksTab
   },
   {
     path: '/tijdreeksen',
     name: 'tijdreeksen',
-    component: Tab3
+    component: tijdreeksenTab
   },
 
 ];

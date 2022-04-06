@@ -23,17 +23,18 @@
         style="500px"
         v-model="selectedTab"
       >
-        <v-tab :to="{ name: 'zomer' }" >
-          {{tab1}}
+        <v-tab :to="{ name: 'actuele' }">
+          {{actueleTab}}
         </v-tab>
         <v-tab :to="{ name: 'maandelijks' }" >
-          {{tab2}}
+          {{maandelijksTab}}
         </v-tab>
+
         <v-tab :to="{ name: 'tijdreeksen' }">
-          {{tab3}}
+          {{tijdreeksenTab}}
         </v-tab>
-        <v-tab :to="{ name: 'intro' }">
-          {{tab4}}
+        <v-tab :to="{ name: 'zomer' }" >
+          {{zomerTab}}
         </v-tab>
 
       </v-tabs>
@@ -69,7 +70,7 @@ import FeatureDetails from '@/components/feature-details';
 import requestData from '@/components/transect-popup';
 import RiskLegend from '@/components/legend';
 import MapTitle from '@/components/map-title';
-import { app_name,tab1,tab2,tab3,tab4} from "../../../config/datalayers-config.js";
+import { app_name,zomerTab,maandelijksTab,tijdreeksenTab,actueleTab} from "../../../config/datalayers-config.js";
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
@@ -93,17 +94,17 @@ export default {
     appname () {
       return app_name;
     },
-    tab1 () {
-      return tab1;
+    zomerTab () {
+      return zomerTab;
     },
-    tab2 () {
-      return tab2;
+    maandelijksTab () {
+      return maandelijksTab;
     },
-    tab3 () {
-      return tab3;
+    tijdreeksenTab () {
+      return tijdreeksenTab;
     },
-    tab4 () {
-      return tab4;
+    actueleTab () {
+      return actueleTab;
     },
     activeFeature() {
       return this.$store.getters['mapbox/activeFeature'];

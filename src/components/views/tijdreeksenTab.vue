@@ -27,18 +27,18 @@
 </template>
 
 <script>
-import { tab3, items_tab3 } from "../../../config/datalayers-config";
+import { tijdreeksenTab, items_tijdreeksenTab } from "../../../config/datalayers-config";
 
 const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
 
 export default {
   data: () => ({
     visibleLayers: [],
-    items: items_tab3
+    items: items_tijdreeksenTab
   }),
   computed:{
     tabname() {
-      return tab3;
+      return tijdreeksenTab;
     }},
   mounted() {
     this.addLocationsLayer();

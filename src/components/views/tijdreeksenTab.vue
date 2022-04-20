@@ -157,8 +157,8 @@ export default {
 </script>
 <style scoped> 
 .data-layers {
-  width: 1900;
-  height: 1200px;
+  width: 1200;
+  height: 94vh;
 }
 .v-card__text {
     width: 100%;

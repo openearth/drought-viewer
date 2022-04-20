@@ -301,6 +301,7 @@ export default {
   position: absolute;
   bottom: 2rem;
   left: 0.5rem;
+  z-index: 2;
 }
 
 .echarts {

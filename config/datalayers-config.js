@@ -7,6 +7,7 @@ const zomerTab = "Zomergrondwaterstanden";
 const maandelijksTab = "Maandelijkse grondwaterstanden";
 const tijdreeksenTab = "Tijdreeksen grondwaterstanden";
 const actueleTab = "Actuele grondwaterstanden";
+const achtergrondinformatie = "Achtergrondinformatie";
 
 //agree on fixed date for the summer map
 const items_zomerTab = [
@@ -32,4 +33,4 @@ const items_actueleTab = [
   { id: '25', name: 'Huidige kaart' , layer: 'GWmonthly_ExternalHistorical'}
 ];
 
-export { app_name, zomerTab, maandelijksTab, tijdreeksenTab, actueleTab, items_zomerTab, items_tijdreeksenTab, items_actueleTab, months_maandelijksTab};
+export { app_name, zomerTab, maandelijksTab, tijdreeksenTab, actueleTab, items_zomerTab, items_tijdreeksenTab, items_actueleTab, months_maandelijksTab, achtergrondinformatie};

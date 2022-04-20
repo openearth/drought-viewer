@@ -1,15 +1,13 @@
 <template>
-  <div class="mapbox-map">
-    <v-mapbox
-      class="mapbox-map__map"
-      :access-token="mapBoxToken"
-      :map-style="mapConfig.style"
-      :center="mapConfig.center"
-      :zoom="mapConfig.zoom"
-      :max-zoom="mapConfig.maxZoom"
-      @mb-created="onMapCreated"
-      id="map"
-      ref="map"
+  <v-mapbox
+    :access-token="mapBoxToken"
+    :map-style="mapConfig.style"
+    :center="mapConfig.center"
+    :zoom="mapConfig.zoom"
+    :max-zoom="mapConfig.maxZoom"
+    @mb-created="onMapCreated"
+    id="map"
+    ref="map"
     >
 
       <!-- Map Controls -->
@@ -37,8 +35,7 @@
         :options="layer"
       />
 
-    </v-mapbox>
-  </div>
+  </v-mapbox>
 </template>
 
 <script>
@@ -48,8 +45,8 @@ import { MAP_CENTER, MAP_ZOOM, MAX_MAP_ZOOM, MAP_BASELAYER_DEFAULT, MAP_BASELAYE
 import MapLayer from './map-layer';
 import MapControlBaselayer from './map-control-baselayer';
 // import MapControlFitbounds from './map-control-fitbounds';
-import getLocalJson from '@/data/get-local-json';
 
+import provinces from '@/data/provinces.json';
 
 
 export default {
@@ -91,6 +88,7 @@ export default {
     onMapCreated(map) {
       this.$root.map = map;
       map.on('load', ()  => {
+        console.log('map was loaded');
         this.$root.mapLoaded = true;
         this.fakeRequestToBuildLayer ();
       });
@@ -102,21 +100,23 @@ export default {
         zoom: this.mapConfig.zoom
       });
     },
-    async fakeRequestToBuildLayer() {
-      const data = await getLocalJson(`provinces.json`);
-      this.$root.map.addSource('provinces', {
-        'type': 'geojson',
-        'data': data
-      });
-      this.$root.map.addLayer({
-        'id': 'wtf',
-        'type': 'line',
-        'source': 'provinces',
-        'layout': {},
-        'paint': {
-          'line-width': 1.5
-        }
-      });
+    fakeRequestToBuildLayer() {
+      setTimeout(() => {
+        this.$root.map.addSource('provinces', {
+          'type': 'geojson',
+          'data': provinces
+        });
+        this.$root.map.addLayer({
+          'id': 'wtf',
+          'type': 'line',
+          'source': 'provinces',
+          'layout': {},
+          'paint': {
+            'line-width': 1.5
+          }
+        }); 
+      }, 2000);
+
     },
     layerClick(e) {
       var features = this.$root.map.queryRenderedFeatures(e.point, { layers: [e.features[0].layer.source] });
@@ -128,12 +128,7 @@ export default {
 </script>
 
 <style>
-.mapbox-map {
-  height: 100%;
-  width: 100%;
-}
-
-.mapbox-map__map {
+#map {
   height: 100%;
   width: 100%;
 }

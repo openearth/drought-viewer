@@ -6,10 +6,11 @@
       color="primary"
       dark
     >
-      <v-toolbar-title
-       style= 'width:250px'>
-       {{appname}}
-       </v-toolbar-title>
+      <v-toolbar-title style= 'width:250px'>
+         <router-link to="/" class="white--text text-decoration-none">
+           {{appname}}
+         </router-link>  
+      </v-toolbar-title>
       <welcome-dialog />
       <v-tabs
         background-color="primary"

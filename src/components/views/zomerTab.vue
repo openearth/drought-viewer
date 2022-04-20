@@ -62,6 +62,9 @@
           v-if="legendLayer"
           :legendLayer="legendLayer"
         />
+        <div class="deltares-logo">
+          <img src="~@/assets/img/deltares-logo.png" style="width: 80px; height: 30px;"/>
+        </div>
         <mapbox-map />
       </div>
     </v-main>
@@ -157,5 +160,12 @@ export default {
 .v-card__text {
     width: 100%;
     text-align: justify;
+}
+
+.deltares-logo { 
+  position: absolute;
+  bottom: -0.2rem;
+  left: 6rem;
+  z-index: 2;
 }
 </style>

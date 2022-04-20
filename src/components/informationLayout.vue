@@ -44,7 +44,6 @@ export default {
       if (url !== ''){ // You can check any matching expression.
         try {
           url = require('@/assets/img/' + url);
-          console.log('url', url);
         } catch (e) {
           url = require('@/assets/img/dry.jpg'); 
         }

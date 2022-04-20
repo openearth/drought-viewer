@@ -70,6 +70,9 @@
           v-if="legendLayer"
           :legendLayer="legendLayer"
         />
+        <div class="deltares-logo">
+          <img src="~@/assets/img/deltares-logo.png" style="width: 80px; height: 30px;"/>
+        </div>
         <mapbox-map />
       </div>
     </v-main>
@@ -183,5 +186,12 @@ export default {
 }
 .range-slider-fill {
     background-color: #49a5e2;
+}
+
+.deltares-logo { 
+  position: absolute;
+  bottom: -0.2rem;
+  left: 6rem;
+  z-index: 2;
 }
 </style>

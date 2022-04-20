@@ -2,13 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
 
-/* import zomerTab from '../components/views/zomerTab';
 
-;*/
+
 import actueleTab from '../components/views/actueleTab'; 
 import achtergrondinformatie from '../components/views/achtergrondinformatie';
 import maandelijksTab from '../components/views/maandelijksTab';
 import tijdreeksenTab from '../components/views/tijdreeksenTab';
+import zomerTab from '../components/views/zomerTab';
+
 
 Vue.use(VueRouter);
 
@@ -38,14 +39,11 @@ const routes = [
     name: 'tijdreeksen',
     component: tijdreeksenTab
   },
-  /*   {
+  {
     path: '/zomer',
     name: 'zomer',
     component: zomerTab
-  },
-  
-
- */
+  }
 ];
 
 const router = new VueRouter({

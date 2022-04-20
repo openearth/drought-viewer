@@ -88,7 +88,6 @@ export default {
     onMapCreated(map) {
       this.$root.map = map;
       map.on('load', ()  => {
-        console.log('map was loaded');
         this.$root.mapLoaded = true;
         this.fakeRequestToBuildLayer ();
       });

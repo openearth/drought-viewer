@@ -31,6 +31,9 @@
         <v-tab :to="{ name: 'tijdreeksen' }">
           {{tijdreeksenTab}}
         </v-tab>
+        <v-tab :to="{ name: 'zomer' }">
+          {{zomerTab}}
+        </v-tab>
       </v-tabs>
     </v-app-bar>
     <router-view></router-view>

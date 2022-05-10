@@ -29,14 +29,14 @@ export default {
 <style>
 
 .news-card {
-  border-color: white !important;
+  border-color: black !important;
   margin-bottom: 10px;
   border-width: medium !important;
-  background-color: #0A62B0 !important;
+  background-color: #008fc5 !important;
 }
 
 .news-list {
-  background-color: #0A62B0 !important;
+  background-color: #008fc5 !important;
 }
 
 </style>

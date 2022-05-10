@@ -17,8 +17,8 @@
               >
           </v-avatar>
         </v-col>
-        <v-col cols="10">
-          <span>{{ text }}</span>
+        <v-col cols="10" class="mb-4">
+          <span >{{ text }}</span>
         </v-col>
       </v-row>
     </v-card>
@@ -59,10 +59,10 @@ export default {
 <style>
 
 .information-card {
-  border-color: white !important;
+  border-color: black !important;
   margin-bottom: 10px;
   border-width: medium !important;
-  background-color: #0A62B0 !important;
+  background-color:  #008fc5 !important;
 }
 
 </style>

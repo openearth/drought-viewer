@@ -55,7 +55,7 @@ export default {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-color: black;
+  background-color: white;
 }
 
 .card-title {

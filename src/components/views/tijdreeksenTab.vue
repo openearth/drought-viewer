@@ -170,8 +170,8 @@ export default {
 
 .deltares-logo { 
   position: absolute;
-  bottom: -0.2rem;
-  left: 6rem;
+  bottom: 1.2rem;
+  left: 11rem;
   z-index: 2;
 }
 </style>

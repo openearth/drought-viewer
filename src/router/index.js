@@ -16,8 +16,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/achtergrondinformatie',
-    component: achtergrondinformatie
+    redirect: '/actuele',
+    component: actueleTab
   },
   {
     path: '/achtergrondinformatie',

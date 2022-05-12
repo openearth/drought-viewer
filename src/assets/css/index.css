@@ -4,3 +4,6 @@
 .v-toolbar__title {
   white-space: normal;
 }
+.v-list-item__content {
+  line-height: 1.5 !important;
+}

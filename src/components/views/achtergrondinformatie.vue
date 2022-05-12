@@ -8,7 +8,7 @@
               Achtergrondinformatie
             </h2>
             <div v-for="info in backgroundInformation" :key="info.title">
-               <informationLayout :title="info.title" :text="info.text" :icon="info.icon"></informationLayout>
+               <information-layout :title="info.title" :text="info.text" :icon="info.icon"></information-layout>
             </div>
            
           
@@ -30,7 +30,6 @@
 <script>
 import informationLayout from '@/components/informationLayout';
 import backgroundInformation from '@/data/backgroundInformation.json';
-import news from '@/data/news.json';
 import newsLayout from '@/components/newsLayout';
 
 
@@ -42,7 +41,6 @@ export default {
   data () { 
     return { 
       backgroundInformation,
-      news
     };
   }
 };

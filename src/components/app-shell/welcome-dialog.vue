@@ -11,10 +11,10 @@
         </span>
       </v-card-title>
       <v-card-text>
-        De droogteradar - grondwaterprognoses is ontwikkeld door Deltares om beschikbare kennis op het gebied van vooruitzichten van het grondwater tijdens voor en droogte toegankelijk te maken voor een breder publiek. 
+        De Droogteradar is ontwikkeld door Deltares om beschikbare kennis op het gebied van vooruitzichten van grondwaterstanden toegankelijk te maken voor een breder publiek.
       </v-card-text>
       <v-card-text>
-        Deze web-viewer toont de ontwikkeling van het grondwater in de loop van het groeiseizoen voor drie meteorologische scenario's: droog, gemiddeld en nat. Ook wordt voor ieder scenario de verwachte gemiddelde laagste grondwaterstand van het lopende jaar in beeld gebracht. Deze zomergrondwaterstand is een belangrijke droogte indicator voor onder andere natuur en landbouw. 
+        Deze web-viewer toont, op basis van het huidige meteorologische toestand en berekeningen met het nationaal hydrologisch model, de ontwikkeling van het grondwater in de loop van het groeiseizoen voor drie meteorologische scenario's: droog, gemiddeld en nat. Ook wordt voor ieder scenario de verwachte gemiddelde laagste grondwaterstand van het lopende jaar in beeld gebracht. Deze zomergrondwaterstand is een belangrijke droogte indicator voor onder andere natuur en landbouw.
       </v-card-text>
       <v-card-text>
         Doel is om de prognoses samen met partners verder te ontwikkelen tot een nationaal droogtevoorspellingssysteem dat zowel waterbeheerders als watergebruikers van waardevolle informatie voorziet om tijdig droogtemaatregelen in te kunnen zetten.

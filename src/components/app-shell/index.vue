@@ -1,19 +1,16 @@
 <template>
   <v-app>
-
-    <sidebar />
     <v-app-bar
       class="app-header"
       app
       color="primary"
       dark
     >
-
-      <v-toolbar-title
-       style= 'width:250px'>
-       {{appname}}
-       </v-toolbar-title>
-
+      <v-toolbar-title style= 'width:250px'>
+         <router-link to="/" class="white--text text-decoration-none">
+           {{appname}}
+         </router-link>  
+      </v-toolbar-title>
       <welcome-dialog />
       <v-tabs
         background-color="primary"
@@ -23,55 +20,33 @@
         style="500px"
         v-model="selectedTab"
       >
-        <v-tab :to="{ name: 'zomer' }" >
-          {{tab1}}
+        <v-tab :to="{ name: 'achtergrondinformatie' }">
+          {{achtergrondinformatie}}
+        </v-tab>
+        <v-tab :to="{ name: 'actuele' }">
+          {{actueleTab}}
         </v-tab>
         <v-tab :to="{ name: 'maandelijks' }" >
-          {{tab2}}
+          {{maandelijksTab}}
         </v-tab>
         <v-tab :to="{ name: 'tijdreeksen' }">
-          {{tab3}}
+          {{tijdreeksenTab}}
         </v-tab>
-        <v-tab :to="{ name: 'intro' }">
-          {{tab4}}
+        <v-tab :to="{ name: 'zomer' }">
+          {{zomerTab}}
         </v-tab>
-
       </v-tabs>
     </v-app-bar>
-
-    <v-content>
-      <map-title v-if="activeLayerTimestamp" :title="activeLayerTimestamp"></map-title>
-      <risk-legend
-        v-if="legendLayer"
-        :legendLayer="legendLayer"
-      />
-      <mapbox-map />
-      <feature-details
-        v-if="!!activeFeature"
-        :feature="activeFeature"
-        :parameters="parameters"
-      />
-      <requestData
-        v-if="!!requestData"
-        :feature="requestData"
-      />
-    </v-content>
-
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-// import json_config from '@/config'
-import Sidebar from './sidebar';
-import MapboxMap from '@/components/mapbox-map';
-import WelcomeDialog from './welcome-dialog';
-import FeatureDetails from '@/components/feature-details';
-import requestData from '@/components/transect-popup';
-import RiskLegend from '@/components/legend';
-import MapTitle from '@/components/map-title';
-import { app_name,tab1,tab2,tab3,tab4} from "../../../config/datalayers-config.js";
 
-const defaultUrl = process.env.VUE_APP_SERVER_BASE_URL;
+
+import WelcomeDialog from './welcome-dialog';
+import { app_name,zomerTab,maandelijksTab,tijdreeksenTab,actueleTab, achtergrondinformatie} from "../../../config/datalayers-config.js";
+
 
 export default {
   data: () => ({
@@ -80,63 +55,34 @@ export default {
   }),
 
   components: {
-    Sidebar,
-    MapboxMap,
     WelcomeDialog,
-    FeatureDetails,
-    requestData,
-    RiskLegend,
-    MapTitle,
   },
 
   computed: {
     appname () {
       return app_name;
     },
-    tab1 () {
-      return tab1;
+    zomerTab () {
+      return zomerTab;
     },
-    tab2 () {
-      return tab2;
+    maandelijksTab () {
+      return maandelijksTab;
     },
-    tab3 () {
-      return tab3;
+    tijdreeksenTab () {
+      return tijdreeksenTab;
     },
-    tab4 () {
-      return tab4;
+    actueleTab () {
+      return actueleTab;
     },
-    activeFeature() {
-      return this.$store.getters['mapbox/activeFeature'];
+    achtergrondinformatie () { 
+      return achtergrondinformatie;
     },
-    requestData() {
-      return this.$store.getters['mapbox/requestData'];
-    },
-    legendLayer() {
-      return this.$store.getters['mapbox/legendLayer'];
-    },
-    activeLayerTimestamp() {
-      return this.$store.getters['mapbox/activeLayerTimestamp'];
-    }
     
   },
   mounted () {
     this.selectedTab = "first";
-    this.getParameters();
   },
-  methods: {
-    getParameters() {
-      fetch(`${defaultUrl}/rest/fewspiservice/v1/archive/parameters?documentFormat=PI_JSON`)
-        .then(res => {
-          return res.json();
-        })
-        .then(response => {
-          // TODO: uncomment this when fewspiservice is properly filled
-          this.parameters = response.parameters[0].parameterId;
-          // let parameters = response.parameters.map(param => param.parameterId)
-          // this.parameters = parameters.join(';')
-        });
-    }
-  }
+
 };
 </script>
 

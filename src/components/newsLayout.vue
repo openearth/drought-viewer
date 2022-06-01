@@ -10,7 +10,7 @@
       <v-list-item>
         <v-list-item-content class="item-content">
           <h3 style="margin-bottom: 20px;">Maandelijkse of (twee-)wekelijke updates grondwatertoestand</h3>
-          <p class="paragraph-news">Ondanks de regenachtige winter van 2021/2022 dalen de grondwaterstanden de laatste weken snel als gevolg van het uitblijven van regen in april en mei. Hierdoor zijn de grondwaterstanden op dit moment gemiddeld tot laag voor de tijd van het jaar. De grondwaterprognoses laten zien dat de grondwaterstanden deze zomer in grote delen van Nederland waarschijnlijk relatief laag blijven. Een flinke toename van de neerslag is nodig om de grondwaterstanden op een wenselijk peil te krijgen.</p>
+          <p class="paragraph-news"><strong>Update 30 mei 2022:</strong> Half mei stonden de grondwaterstanden laag tot zeer laag voor de tijd van het jaar. De neerslag die gevallen is in de 2de helft van mei heeft gezorgd voor een lichte tot matige stijging van het grondwater. In het zuiden van Nederland zijn de grondwaterstanden nog steeds laag voor de tijd van het jaar, terwijl de grondwaterstanden in het noorden normaal en in sommige gebieden zelfs relatief hoog zijn voor de tijd van het jaar. In het geval er de komende weken sprake is van gemiddelde neerslag en verdamping zal de stijging van grondwaterstanden doorzetten en lopen ook de grondwaterstanden in het zuiden van Nederland op naar normaal voor de tijd van het jaar (scenario “gemiddeld”). In geval van een periode met weinig neerslag zullen de grondwaterstanden dalen en enkele centimeters tot decimeters lager uitkomen dan het normale niveau (scenario “droog”).</p>
         </v-list-item-content>
 
       </v-list-item>

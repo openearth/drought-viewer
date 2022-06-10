@@ -108,7 +108,7 @@ export default {
   computed:{
     ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp']),
     months () {
-      const months = Array.from(Array(6).keys());
+      const months = Array.from(Array(4).keys());
       const availableMonths = months.map((currentMonth) => {
         const month = currentMonth + 1; 
         return moment().add(month, 'months').format('MMM');

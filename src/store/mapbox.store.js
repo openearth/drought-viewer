@@ -4,6 +4,7 @@ export default {
   state: {
     geoJsonLayers: [],
     rasterLayers: [],
+    overlayLayer: null,
     activeFeature: null,
     requestData:null,
     legendLayer: null,
@@ -12,6 +13,7 @@ export default {
   getters: {
     geoJsonLayers: state => state.geoJsonLayers,
     rasterLayers: state => state.rasterLayers,
+    overlayLayer: state => state.overlayLayer,
     activeFeature: state => state.activeFeature,
     requestData: state => state.requestData,
     legendLayer: state => state.legendLayer,
@@ -56,6 +58,12 @@ export default {
     },
     REMOVE_ALL_LAYERS(state) {
       state.rasterLayers = state.rasterLayers=[];
+    },
+    ADD_OVERLAY_LAYER(state, newLayer) {
+      state.overlayLayer = newLayer;
+    },
+    REMOVE_OVERLAY_LAYER(state) {
+      state.overlayLayer = null;
     },
     SET_ACTIVE_FEATURE(state, feature) {
       state.activeFeature = Object.freeze(feature);

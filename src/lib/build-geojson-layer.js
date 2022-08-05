@@ -7,8 +7,9 @@ export default function buildGeojsonLayer({ id, name, data, opacity }) {
       data,
     }, 
     paint: {
-      'fill-color': '#00FF00', // blue color fill
-      'fill-opacity': 1
+      'fill-color': '#00FF00', 
+      'fill-opacity': 1,
+      'fill-outline-color': 'rgba(0, 0, 0, 0.3)'
     },
     opacity
   };

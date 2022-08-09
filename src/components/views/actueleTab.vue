@@ -92,6 +92,7 @@ import { actueleTab, items_actueleTab } from "../../../config/datalayers-config"
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
 import buildGeojsonLayer from '@/lib/build-geojson-layer';
 import natura_2000 from '@/data/Natura2000_4326.json';
+import gwafh_natuur from '@/data/gwafh_natuur_dissolved_4326.json';
 import _ from 'lodash';
 
 import MapboxMap from '@/components/mapbox-map';
@@ -107,7 +108,8 @@ export default {
   },
   data: () => ({
     items: items_actueleTab,
-    overlays: [{id: 'natura_test-2dvbe9', name: 'nature 2000 areas', data: natura_2000, opacity: 1 }],
+    overlays: [{id: 'natura_test-2dvbe9', name: 'Natura 2000 gebieden', data: natura_2000, opacity: 1 },
+    {id: 'gwafh_natuur-2dvbe9', name: 'Grondwater afhankelijke natuur', data: gwafh_natuur, opacity: 1 }],
     selectedOverlayId: null,
     layerOpacity: 1
   }),

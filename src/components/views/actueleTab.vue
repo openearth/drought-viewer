@@ -91,7 +91,7 @@ import buildWmsLayer from '@/lib/build-wms-layer';
 import { actueleTab, items_actueleTab } from "../../../config/datalayers-config";
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
 import buildGeojsonLayer from '@/lib/build-geojson-layer';
-import natura_2000 from '@/data/natura_2000.json';
+import natura_2000 from '@/data/Natura2000_4326.json';
 import _ from 'lodash';
 
 import MapboxMap from '@/components/mapbox-map';

@@ -108,7 +108,8 @@ export default {
   },
   data: () => ({
     items: items_actueleTab,
-    overlays: [{id: 'natura_test-2dvbe9', name: 'Grondwater afhankelijke natuur ', data: gwafh_natuur, opacity: 1 }],
+    overlays: [{id: 'natura_test-2dvbe9', name: 'Grondwater afhankelijke natuur ', data: gwafh_natuur, opacity: 1 },
+    {id: 'natura2_test-2dvbe9', name: 'Natura 2000 gebieden ', data: natura_2000, opacity: 1 }],
     selectedOverlayId: null,
     layerOpacity: 1
   }),

@@ -108,8 +108,7 @@ export default {
   },
   data: () => ({
     items: items_actueleTab,
-    overlays: [{id: 'natura_test-2dvbe9', name: 'Grondwater afhankelijke natuur ', data: gwafh_natuur, opacity: 1 },
-    {id: 'natura2_test-2dvbe9', name: 'Natura 2000 gebieden ', data: natura_2000, opacity: 1 }],
+    overlays: [{id: 'natura_test-2dvbe9', name: 'Grondwater afhankelijke natuur ', data: gwafh_natuur, opacity: 1 }],
     selectedOverlayId: null,
     layerOpacity: 1
   }),
@@ -170,7 +169,75 @@ export default {
     }
   }
 };
+export default {
+  components: {
+    MapboxMap,
+    RiskLegend,
+    MapTitle
+  },
+  data: () => ({
+    items: items_actueleTab,
+    overlays: [{id: 'natura2_test-2dvbe9', name: 'Natura 2000 gebieden ', data: natura_2000, opacity: 1 }],
+    selectedOverlayId: null,
+    layerOpacity: 1
+  }),
+  computed: { 
+    ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp']),
+    tabname() {
+      return actueleTab;
+    }
+  },
+  mounted () {
+    const layerToAdd = this.items[0];
+    this.addLayer(layerToAdd);
+  },
+  methods: {
+    //TODO: move it in lib as function as is used in multiple components
+    addLayer(layer) {
+      let wmsLayer;
+      if (!_.get(layer, 'time_stamp')) {
+        const getCapabilitiesUrl = buildCapabilitiesUrl(layer);
+        fetch(getCapabilitiesUrl)
+          .then((res) => {
+            return res.json();
+          })
+          .then((response) => {
+            const layerRes = response.layers.find(l => l.name === layer.layer);
+            const times = layerRes.times;
+            const time = times[times.length - 1];
+            layer.time_stamp = time;
+            wmsLayer = buildWmsLayer(layer);
+            this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+            this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
+          });
+      } else {
+        wmsLayer = buildWmsLayer(layer);
+        this.$store.commit('mapbox/ADD_RASTER_LAYER', wmsLayer);
+        this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
+      }
+    },
+    setLayerOpacity(id) {
+      const selectedOverlay = this.overlays.find(overlay => overlay.id === id);
+      const updatedOverlay = {...selectedOverlay, ... {opacity: this.layerOpacity}};
+      this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
+      this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(updatedOverlay));
 
+    }
+  },
+  watch: {
+    selectedOverlayId() { 
+      //find attributes of selected overlays to build the layer
+      if (!this.selectedOverlayId) {
+        this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
+      }else {
+        const selectedOverlay = this.overlays.find(overlay => overlay.id === this.selectedOverlayId);
+        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(selectedOverlay));
+      }
+     
+      
+    }
+  }
+};
 </script>
 <style scoped>
 .data-layers {

@@ -1,13 +1,16 @@
-export default function buildGeojsonLayer({ id, data, type, paint={}, layout={} }) {
+export default function buildGeojsonLayer({ id, name, data, opacity }) {
   return {
     id,
-    type,
+    type: 'fill',
     source: {
-      tolerance: 3.5,
       type: 'geojson',
-      data
+      data,
+    }, 
+    paint: {
+      'fill-color': '#00FF00', 
+      'fill-opacity': 1,
+      'fill-outline-color': 'rgba(0, 0, 0, 0.3)'
     },
-    layout,
-    paint
+    opacity
   };
 }

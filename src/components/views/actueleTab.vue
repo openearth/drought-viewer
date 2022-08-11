@@ -7,10 +7,13 @@
       width="500"
       ref="nav"
     >
-      <v-row dense>
-        <v-col :cols="12">
-          <div>
-            <v-sheet class="mt-2">
+      <v-tabs
+       fixed-tabs
+      >
+        <v-tab>Information</v-tab>
+        <v-tab>Overlays</v-tab>
+        <v-tab-item>
+          <v-sheet class="mt-2">
               <v-img
                 aspect-ratio="1.3"
                 contain
@@ -29,9 +32,44 @@
                 De datum waarop de laatste actualisatie is uitgevoerd staat linksboven de kaart vermeld.
               </v-card-text>
               </v-sheet>
-            </div>
-        </v-col>
-      </v-row>
+        </v-tab-item>
+         <v-tab-item>
+          <v-card-title>
+            Somekind of title
+          </v-card-title>
+          <v-card-text>
+            Lorem ipsum Lorem ipsum
+            Lorem ipsum Lorem ipsum
+            Lorem ipsum Lorem ipsum
+            Lorem ipsum Lorem ipsum
+            Lorem ipsum Lorem ipsum
+          </v-card-text>
+           <v-container fluid justify="center" class="pl-4 ml-4">
+             <div v-for="overlay in overlays" :key="overlay.id">
+               <v-switch
+                  :label="overlay.name"
+                  :value="overlay.id"
+                  v-model="selectedOverlayId"
+                  inset
+                  hide-details
+                />
+                <v-slider
+                  v-model="layerOpacity"
+                  class="pt-2 pb-5 pr-16 pl-4"
+                  hide-details
+                  :ripple="false"
+                  :max="1"
+                  :step="0.1"
+                  label="Opacity"
+                  @change="setLayerOpacity(overlay.id)"
+                />
+             </div>
+            </v-container>
+
+
+        </v-tab-item>
+        </v-tabs>
+     
     </v-navigation-drawer>
     <v-main app>
       <div class="data-layers">
@@ -52,6 +90,9 @@
 import buildWmsLayer from '@/lib/build-wms-layer';
 import { actueleTab, items_actueleTab } from "../../../config/datalayers-config";
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
+import buildGeojsonLayer from '@/lib/build-geojson-layer';
+import natura_2000 from '@/data/Natura2000_4326.json';
+import gwafh_natuur from '@/data/gwafh_natuur_from_grid_4326.json';
 import _ from 'lodash';
 
 import MapboxMap from '@/components/mapbox-map';
@@ -66,7 +107,10 @@ export default {
     MapTitle
   },
   data: () => ({
-    items: items_actueleTab
+    items: items_actueleTab,
+    overlays: [{id: 'natura_test-2dvbe9', name: 'Grondwater afhankelijke natuur ', data: gwafh_natuur, opacity: 1 }],
+    selectedOverlayId: null,
+    layerOpacity: 1
   }),
   computed: { 
     ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp']),
@@ -103,6 +147,26 @@ export default {
         this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
       }
     },
+    setLayerOpacity(id) {
+      const selectedOverlay = this.overlays.find(overlay => overlay.id === id);
+      const updatedOverlay = {...selectedOverlay, ... {opacity: this.layerOpacity}};
+      this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
+      this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(updatedOverlay));
+
+    }
+  },
+  watch: {
+    selectedOverlayId() { 
+      //find attributes of selected overlays to build the layer
+      if (!this.selectedOverlayId) {
+        this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
+      }else {
+        const selectedOverlay = this.overlays.find(overlay => overlay.id === this.selectedOverlayId);
+        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(selectedOverlay));
+      }
+     
+      
+    }
   }
 };
 

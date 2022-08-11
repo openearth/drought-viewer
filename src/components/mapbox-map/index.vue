@@ -34,7 +34,12 @@
         :key="layer.id"
         :options="layer"
       />
-
+      <div v-if="overlayLayer" :key="overlayLayer.id">
+        <map-layer
+          :options="overlayLayer"
+          :opacity="overlayLayer.opacity"
+        />
+      </div>
   </v-mapbox>
 </template>
 
@@ -81,6 +86,9 @@ export default {
     },
     rasterLayers() {
       return this.$store.getters['mapbox/rasterLayers'];
+    },
+    overlayLayer() {
+      return this.$store.getters['mapbox/overlayLayer'];
     }
   },
 

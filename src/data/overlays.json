@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Natura 2000",
+    "id": "dr:Natura2000",
+    "layer": "dr:Natura2000",
+    "url": "http://localhost:8080/geoserver/ows"
+  },
+  {
+    "name": "Groundwater",
+    "id": "dr:gwafhNatuur",
+    "layer": "dr:gwafhNatuur",
+    "url": "http://localhost:8080/geoserver/ows"
+  }
+]

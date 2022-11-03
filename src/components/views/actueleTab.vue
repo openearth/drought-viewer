@@ -90,9 +90,8 @@
 import buildWmsLayer from '@/lib/build-wms-layer';
 import { actueleTab, items_actueleTab } from "../../../config/datalayers-config";
 import buildCapabilitiesUrl from '@/lib/build-capabilities-url';
-import buildGeojsonLayer from '@/lib/build-geojson-layer';
-import natura_2000 from '@/data/Natura2000_4326.json';
 import _ from 'lodash';
+import overlays from '@/data/overlays.json';
 
 import MapboxMap from '@/components/mapbox-map';
 import RiskLegend from '@/components/legend';
@@ -107,7 +106,7 @@ export default {
   },
   data: () => ({
     items: items_actueleTab,
-    overlays: [{id: 'natura_test-2dvbe9', name: 'Natura 2000 gebieden', data: natura_2000, opacity: 1 }],
+    overlays: overlays,
     selectedOverlayId: null,
     layerOpacity: 1
   }),
@@ -150,7 +149,7 @@ export default {
       const selectedOverlay = this.overlays.find(overlay => overlay.id === id);
       const updatedOverlay = {...selectedOverlay, ... {opacity: this.layerOpacity}};
       this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
-      this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(updatedOverlay));
+      this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(updatedOverlay));
 
     }
   },
@@ -161,7 +160,7 @@ export default {
         this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
       }else {
         const selectedOverlay = this.overlays.find(overlay => overlay.id === this.selectedOverlayId);
-        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildGeojsonLayer(selectedOverlay));
+        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(selectedOverlay));
       }
      
       

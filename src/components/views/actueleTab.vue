@@ -49,26 +49,24 @@
                <v-switch
                   :label="overlay.name"
                   :value="overlay.id"
-                  v-model="selectedOverlayId"
+                  @change="loadOverlay(overlay)"
                   inset
                   hide-details
                 />
                 <v-slider
-                  v-model="layerOpacity"
+                  v-model="overlay.opacity"
                   class="pt-2 pb-5 pr-16 pl-4"
                   hide-details
                   :ripple="false"
                   :max="1"
                   :step="0.1"
                   label="Opacity"
-                  @change="setLayerOpacity(overlay.id)"
+                  @change="setLayerOpacity(overlay)"
                 />
              </div>
             </v-container>
-
-
         </v-tab-item>
-        </v-tabs>
+      </v-tabs>
      
     </v-navigation-drawer>
     <v-main app>
@@ -111,7 +109,7 @@ export default {
     layerOpacity: 1
   }),
   computed: { 
-    ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp']),
+    ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp', 'overlayLayers']),
     tabname() {
       return actueleTab;
     }
@@ -145,25 +143,24 @@ export default {
         this.$store.commit('mapbox/SET_LEGEND_LAYER', wmsLayer.layer);
       }
     },
-    setLayerOpacity(id) {
-      const selectedOverlay = this.overlays.find(overlay => overlay.id === id);
-      const updatedOverlay = {...selectedOverlay, ... {opacity: this.layerOpacity}};
-      this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
-      this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(updatedOverlay));
-
-    }
-  },
-  watch: {
-    selectedOverlayId() { 
-      //find attributes of selected overlays to build the layer
-      if (!this.selectedOverlayId) {
-        this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER');
-      }else {
-        const selectedOverlay = this.overlays.find(overlay => overlay.id === this.selectedOverlayId);
-        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(selectedOverlay));
+    loadOverlay(layer) {
+      const layerExists = this.overlayLayers.some(storedLayer => storedLayer.id === layer.id);
+      if (!layerExists) {
+        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(layer));
+      }else{
+        this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER', layer.id);
       }
+    },
+    setLayerOpacity(layer) {
      
+      const layerExists = this.overlayLayers.some(storedLayer => storedLayer.id === layer.id);
       
+      if(layerExists) {
+        this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER', layer.id);
+        this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(layer));
+      }
+    
+
     }
   }
 };

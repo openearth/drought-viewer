@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import buildLegendUrl from '@/lib/build-legend-url';
+import buildLegendUrlFews from '@/lib/build-legend-url-fews';
 import { LEGEND_TEXT } from '../../config/constants';
 
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     legendUrl() {
-      return buildLegendUrl(this.legendLayer);
+      return buildLegendUrlFews({layers: this.legendLayer});
     }
   },
   data() {

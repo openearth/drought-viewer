@@ -76,6 +76,8 @@
           v-if="legendLayer"
           :legendLayer="legendLayer"
         />
+        <overlays-legends v-if="activeOverlaysLayers.length"/>
+
         <div class="deltares-logo">
           <img src="~@/assets/img/deltares-logo.png" style="width: 80px; height: 30px;"/>
         </div>
@@ -94,13 +96,15 @@ import overlays from '@/data/overlays.json';
 import MapboxMap from '@/components/mapbox-map';
 import RiskLegend from '@/components/legend';
 import MapTitle from '@/components/map-title';
+import OverlaysLegends from '@/components/overlays-legends';
 import {mapGetters} from 'vuex';
 
 export default {
   components: {
     MapboxMap,
     RiskLegend,
-    MapTitle
+    MapTitle,
+    OverlaysLegends
   },
   data: () => ({
     items: items_actueleTab,
@@ -109,7 +113,7 @@ export default {
     layerOpacity: 1
   }),
   computed: { 
-    ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp', 'overlayLayers']),
+    ...mapGetters('mapbox', ['legendLayer', 'activeLayerTimestamp', 'activeOverlaysLayers']),
     tabname() {
       return actueleTab;
     }
@@ -144,7 +148,7 @@ export default {
       }
     },
     loadOverlay(layer) {
-      const layerExists = this.overlayLayers.some(storedLayer => storedLayer.id === layer.id);
+      const layerExists = this.activeOverlaysLayers.some(storedLayer => storedLayer.id === layer.id);
       if (!layerExists) {
         this.$store.commit('mapbox/ADD_OVERLAY_LAYER', buildWmsLayer(layer));
       }else{
@@ -153,7 +157,7 @@ export default {
     },
     setLayerOpacity(layer) {
      
-      const layerExists = this.overlayLayers.some(storedLayer => storedLayer.id === layer.id);
+      const layerExists = this.activeOverlaysLayers.some(storedLayer => storedLayer.id === layer.id);
       
       if(layerExists) {
         this.$store.commit('mapbox/REMOVE_OVERLAY_LAYER', layer.id);

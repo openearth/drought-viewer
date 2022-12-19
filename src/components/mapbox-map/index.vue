@@ -36,7 +36,7 @@
       />
       
       <map-layer
-        v-for="layer in overlayLayers" 
+        v-for="layer in activeOverlaysLayers" 
         :key="layer.id" 
         :options="layer"
         :opacity="layer.opacity"
@@ -89,8 +89,8 @@ export default {
     rasterLayers() {
       return this.$store.getters['mapbox/rasterLayers'];
     },
-    overlayLayers() {
-      return this.$store.getters['mapbox/overlayLayers'];
+    activeOverlaysLayers() {
+      return this.$store.getters['mapbox/activeOverlaysLayers'];
     }
   },
 

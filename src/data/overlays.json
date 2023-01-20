@@ -1,6 +1,6 @@
 [
   {
-    "name": "Groundwater",
+    "name": "Grondwaterafhankelijke natuur ",
     "id": "DroughtViewer:GwafhNatuur",
     "layer": "DroughtViewer:GwafhNatuur",
     "url": "https://deltaresdata.openearth.eu/geoserver/ows",
@@ -8,7 +8,7 @@
     "opacity":1
   },
   {
-    "name": "Natura 2000",
+    "name": "Natura 2000 gebieden op land",
     "id": "DroughtViewer:Natura2000",
     "layer": "DroughtViewer:Natura2000",
     "url": "https://deltaresdata.openearth.eu/geoserver/ows",

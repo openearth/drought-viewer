@@ -10,8 +10,8 @@
       <v-tabs
        fixed-tabs
       >
-        <v-tab>Actuele grondwaterstanden</v-tab>
-        <v-tab>Droogtegevoelige functies en landgebruik</v-tab>
+        <v-tab>Grondwater</v-tab>
+        <v-tab>Functies & Landgebruik </v-tab>
         <v-tab-item>
           <v-sheet class="mt-2">
               <v-img
@@ -35,10 +35,11 @@
         </v-tab-item>
          <v-tab-item>
           <v-card-title>
-            somekind op title
+          Grondwaterafhankelijke natuur
           </v-card-title>
           <v-card-text>
-          ipsum lorem
+          Het in actueel beeld brengen en voorspellen van grondwaterstanden in grondwaterafhankelijke natuurgebieden geeft inzicht in impact van droogte op natuur: welke gebieden hebben of krijgen mogelijk te maken met lage grondwaterstanden, in welke mate en wanneer? Water- en natuurbeheerders kunnen op basis van deze informatie, waar mogelijk, maatregelen nemen om natuurschade als gevolg van droogte te beperken. 
+          Meer informatie: Zeer lage grondwaterstanden natuurgebieden door de droogte - Deltares
           </v-card-text>
            <v-container fluid justify="center" class="pl-4 ml-4">
              <div v-for="overlay in overlays" :key="overlay.id">

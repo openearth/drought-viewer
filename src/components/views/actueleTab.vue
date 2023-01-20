@@ -71,6 +71,7 @@
           </v-card-text>
           (b) Nederland kent 162 Natura 2000-gebieden. Dit Natura 2000-netwerk bestaat uit gebieden die zijn aangewezen onder de Vogelrichtlijn en onder de Habitatrichtlijn. Beide Europese richtlijnen zijn belangrijke instrumenten om de Europese biodiversiteit te waarborgen. Alle gebieden zijn geselecteerd op grond van het voorkomen van soorten en habitattypen die vanuit Europees oogpunt bescherming nodig hebben. Meer informatie: <a style="background-color: white; color:#008fc5 !important;" href="https://www.natura2000.nl/gebieden" >https://www.natura2000.nl/gebieden</a>
           </v-card-text>
+        </v-tab-it
       </v-tabs>
      
     </v-navigation-drawer>

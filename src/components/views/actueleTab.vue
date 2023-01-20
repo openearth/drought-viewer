@@ -65,10 +65,10 @@
           <v-card-title>
             Toelichting natuurgebieden:
           </v-card-title>
-          <v-card-text>
-          (a) Grondwaterafhankelijke natuur is natuur die gebaat is bij hoge grondwaterstanden en vaak bij de aanwezigheid van kwel. In het kader van het project ‘Droogte in zandgebieden van Zuid-, Midden- en Oost-Nederland’  <a style="background-color: white; color:#008fc5 !important;" href="https://edepot.wur.nl/555352" >(Van den Eertwegh ea., 2021)</a> is een kaart ontwikkeld van grondwaterafhankelijke natuurgebieden in Nederland.
-          <v-card-text>
         <v-card-text>
+        (a) Grondwaterafhankelijke natuur is natuur die gebaat is bij hoge grondwaterstanden en vaak bij de aanwezigheid van kwel. In het kader van het project ‘Droogte in zandgebieden van Zuid-, Midden- en Oost-Nederland’  <a style="background-color: white; color:#008fc5 !important;" href="https://edepot.wur.nl/555352" >(Van den Eertwegh ea., 2021)</a> is een kaart ontwikkeld van grondwaterafhankelijke natuurgebieden in Nederland.
+        </v-card-text>
+        </v-card-text>
         (b) Nederland kent 162 Natura 2000-gebieden. Dit Natura 2000-netwerk bestaat uit gebieden die zijn aangewezen onder de Vogelrichtlijn en onder de Habitatrichtlijn. Beide Europese richtlijnen zijn belangrijke instrumenten om de Europese biodiversiteit te waarborgen. Alle gebieden zijn geselecteerd op grond van het voorkomen van soorten en habitattypen die vanuit Europees oogpunt bescherming nodig hebben. Meer informatie: <a style="background-color: white; color:#008fc5 !important;" href="https://www.natura2000.nl/gebieden" >https://www.natura2000.nl/gebieden</a>
         </v-card-text>
       </v-tabs>

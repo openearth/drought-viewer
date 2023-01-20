@@ -16,7 +16,7 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <h3 style="margin-bottom: 20px;"> Update: extra informatie over droogtegevoelige functies en landgebruik. </h3>
+          <h3 style="margin-bottom: 20px;"> Update: extra informatie over droogtegevoelige functies en landgebruik </h3>
           <p class="paragraph-news"> Sinds kort zijn er overlays toegevoegd aan de droogteradar om meer inzicht te krijgen in de grondwaterstanden rondom grondwaterafhankelijke natuurgebieden.</p>
         </v-list-item-content>
 

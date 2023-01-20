@@ -35,11 +35,10 @@
         </v-tab-item>
          <v-tab-item>
           <v-card-title>
-            Grondwaterafhankelijke natuur
+            somekind op title
           </v-card-title>
           <v-card-text>
-            Het in actueel beeld brengen en voorspellen van grondwaterstanden in grondwaterafhankelijke natuurgebieden geeft inzicht in impact van droogte op natuur: welke gebieden hebben of krijgen mogelijk te maken met lage grondwaterstanden, in welke mate en wanneer? Water- en natuurbeheerders kunnen op basis van deze informatie, waar mogelijk, maatregelen nemen om natuurschade als gevolg van droogte te beperken. 
-            Meer informatie: <a style="background-color: #008fc5 !important; color:white;" href="https://www.deltares.nl/nl/nieuws/actuele-kaartbeelden-van-grondwaterstandsverlaging-en-de-ligging-van-enkele-natuurgebieden/#:~:text=Door%20de%20droogte%20en%20hitte,ligging%20van%20enkele%20natuurgebieden%20gecombineerd." >Zeer lage grondwaterstanden natuurgebieden door de droogte - Deltares</a></p>
+          ipsum lorem
           </v-card-text>
            <v-container fluid justify="center" class="pl-4 ml-4">
              <div v-for="overlay in overlays" :key="overlay.id">

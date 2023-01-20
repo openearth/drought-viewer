@@ -1,3 +1,5 @@
+
+import { isNil } from '@/lib/helpers.js';
 export default {
   name: 'map-layer',
   inject: ['getMap'],
@@ -18,7 +20,13 @@ export default {
     clickable: {
       type: Boolean,
       default: false
-    }
+    },
+    opacity: {
+      type: Number,
+      required: false,
+      validator: val => val >= 0 && val <= 1,
+    },
+
   },
 
   data: () => ({
@@ -44,6 +52,9 @@ export default {
         map.on('click', layerId, this.clickFn);
         map.on('mouseenter', layerId, this.mouseEnterFn);
         map.on('mouseleave', layerId, this.mouseLeaveFn);
+      }
+      if (!isNil(this.opacity)) {
+        this.setOpacity();
       }
     },
 
@@ -95,6 +106,11 @@ export default {
       const map = this.getMap();
       map.getCanvas().style.cursor = '';
     },
+    setOpacity() {
+      const map = this.getMap();
+      const { id, type } = this.options;
+      map.setPaintProperty(id, `${ type }-opacity`, this.opacity);
+    },
 
     removeLayer() {
       const map = this.getMap();
@@ -102,7 +118,6 @@ export default {
         const layerId = this.options.id;
         const layer = map.getLayer(layerId);
         if(layer) {
-          console.log('remove', layerId);
           map.removeLayer(layerId);
           map.removeSource(layer.source);
           if(this.clickable) {
@@ -144,6 +159,9 @@ export default {
       handler() {
         this.renderLayer();
       }
-    }
+    },
+    opacity() {
+      this.setOpacity();
+    },
   }
 };

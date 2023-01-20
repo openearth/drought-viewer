@@ -24,9 +24,7 @@
       <v-list-item>
         <v-list-item-content>
           <h3 style="margin-bottom: 20px;"> Input gevraagd voor droogteradar </h3>
-          <p class="paragraph-news"> Binnenkort zal een groep master-studenten aan de WUR ons ondersteunen om de droogteradar te verbeteren. 
-          Om een goede connectie te krijgen met de eindgebruikers van de website, willen we achterhalen welke informatie eindgebruikers nodig hebben, en hoe deze informatie het beste getoond kan worden. Door middel van brainstorm sessies / interviews / stakeholder analyses kan onderzocht worden welke informatie nodig is en gewenst is in een nationaal droogtevoorspellingssysteem.
-          Hiervoor komen wij graag in contact met potentiele gebruikers. </p>
+          <p class="paragraph-news"> Binnenkort zal een groep master-studenten van de WUR ons ondersteunen om de droogteradar en de bruikbaarheid voor eindgebruikers te verbeteren. De studenten zullen onderzoeken welke informatie gebruikers precies nodig hebben en hoe deze informatie het beste getoond kan worden in de droogteradar. Voor dit onderzoek komen wij graag in contact met meer (potentiele) eindgebruikers. Interesse om hieraan deel te nemen? Stuur een email naar <a style="background-color: #008fc5 !important; color:white;" href="mailto:droogteradar@deltares.nl" >Deltares contact</a> </p>
         </v-list-item-content>
 
       </v-list-item>

@@ -10,13 +10,13 @@
       <v-list-item>
         <v-list-item-content class="item-content">
           <h3 style="margin-bottom: 20px;">Maandelijkse of (twee-)wekelijke updates grondwatertoestand</h3>
-          <p class="paragraph-news"><strong>Update 20 januari 2023:</strong> Als gevolg van de neerslag van de afgelopen periode staan de grondwaterstanden in grote delen van Nederland momenteel hoog tot zeer hoog. In hoge gebieden in het oosten en zuiden van het land zijn de grondwaterstanden echter nog steeds relatief laag als gevolg van de droogte in 2022</p>
+          <p class="paragraph-news"><strong>Update 20 januari 2023:</strong> Als gevolg van de neerslag van de afgelopen periode staan de grondwaterstanden in grote delen van Nederland momenteel hoog tot zeer hoog. In hoge gebieden in het oosten en zuiden van het land zijn de grondwaterstanden echter nog steeds relatief laag als gevolg van de droogte in 2022.</p>
         </v-list-item-content>
 
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <h3 style="margin-bottom: 20px;"> Update: informatie over droogtegevoelige functies en landgebruik zijn toegevoegd </h3>
+          <h3 style="margin-bottom: 20px;"> Update: extra informatie over droogtegevoelige functies en landgebruik. </h3>
           <p class="paragraph-news"> Sinds kort zijn er overlays toegevoegd aan de droogteradar om meer inzicht te krijgen in de grondwaterstanden rondom grondwaterafhankelijke natuurgebieden.</p>
         </v-list-item-content>
 

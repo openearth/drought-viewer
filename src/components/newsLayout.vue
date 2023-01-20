@@ -10,21 +10,23 @@
       <v-list-item>
         <v-list-item-content class="item-content">
           <h3 style="margin-bottom: 20px;">Maandelijkse of (twee-)wekelijke updates grondwatertoestand</h3>
-          <p class="paragraph-news"><strong>Update 22 juli 2022:</strong> De neerslagperioden in de tweede helft van mei en begin juni hebben in delen van het land gezorgd voor een stijging van de grondwaterstand. In het zuiden van Nederland stonden de grondwaterstanden medio juni nog wel wat lager dan het langjarig gemiddelde. Momenteel laten de grondwaterstanden nagenoeg overal een dalende trend zien als gevolg van een droge periode in juli. Op dit moment zijn de grondwaterstanden gemiddeld tot laag en in het zuiden lokaal zeer laag voor de tijd van het jaar. In geval er de komende weken de droogte aanhoudt, zullen de grondwaterstanden verder dalen en enkele centimeters tot decimeters lager uitkomen dan het normale niveau. </p>
+          <p class="paragraph-news"><strong>Update 20 januari 2023:</strong> Als gevolg van de neerslag van de afgelopen periode staan de grondwaterstanden in grote delen van Nederland momenteel hoog tot zeer hoog. In hoge gebieden in het oosten en zuiden van het land zijn de grondwaterstanden echter nog steeds relatief laag als gevolg van de droogte in 2022</p>
         </v-list-item-content>
 
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <h3 style="margin-bottom: 20px;"> Updates over nieuwe features in de droogteradar </h3>
-          <p class="paragraph-news"> We werken momenteel aan het toevoegen van informatie over droogtegevoelige functies en landgebruik. </p>
+          <h3 style="margin-bottom: 20px;"> Update: informatie over droogtegevoelige functies en landgebruik zijn toegevoegd </h3>
+          <p class="paragraph-news"> Sinds kort zijn er overlays toegevoegd aan de droogteradar om meer inzicht te krijgen in de grondwaterstanden rondom grondwaterafhankelijke natuurgebieden.</p>
         </v-list-item-content>
 
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <h3 style="margin-bottom: 20px;"> Nieuws over gezamenlijk operationeel platform </h3>
-          <p class="paragraph-news"> Bij de DigiShape dag op 6 april in Lelystad verkenden we met elkaar of, en op welke manier, de ontwikkeling van een operationeel droogte platform van de toekomst van toegevoegde waarde kan zijn om tijdig maatregelen te nemen tegen droogte. Meer informatie over deze bijeenkomst en de resultaten is te vinden op de website van DigiShape: <a style="background-color: #008fc5 !important; color:white;" href="https://www.digishape.nl/nieuws/terugblik-digishape-sessie-operationeel-droogte-platform." >Terugblik: DigiShape sessie Operationeel Droogte Platform</a></p>
+          <h3 style="margin-bottom: 20px;"> Input gevraagd voor droogteradar </h3>
+          <p class="paragraph-news"> Binnenkort zal een groep master-studenten aan de WUR ons ondersteunen om de droogteradar te verbeteren. 
+          Om een goede connectie te krijgen met de eindgebruikers van de website, willen we achterhalen welke informatie eindgebruikers nodig hebben, en hoe deze informatie het beste getoond kan worden. Door middel van brainstorm sessies / interviews / stakeholder analyses kan onderzocht worden welke informatie nodig is en gewenst is in een nationaal droogtevoorspellingssysteem.
+          Hiervoor komen wij graag in contact met potentiele gebruikers. </p>
         </v-list-item-content>
 
       </v-list-item>

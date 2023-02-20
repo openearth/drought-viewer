@@ -10,7 +10,7 @@
       <v-list-item>
         <v-list-item-content class="item-content">
           <h3 style="margin-bottom: 20px;">Maandelijkse of (twee-)wekelijke updates grondwatertoestand</h3>
-          <p class="paragraph-news"><strong>Update 20 januari 2023:</strong> Als gevolg van de neerslag van de afgelopen periode staan de grondwaterstanden in grote delen van Nederland momenteel hoog tot zeer hoog. In hoge gebieden in het oosten en zuiden van het land zijn de grondwaterstanden echter nog steeds relatief laag als gevolg van de droogte in 2022.</p>
+          <p class="paragraph-news"><strong>Update 20 februari 2023:</strong> Het grondwater is sinds de natte periode in januari flink gedaald; grondwaterstanden zijn inmiddels lager dan normaal voor de de tijd van het jaar. Door maatregelen te nemen om ontwatering te verminderen (verhogen peilen, ophogen bodems waterlopen, verwijderen detailontwatering) kan het grondwater langer worden vastgehouden. Zo is het watersysteem beter bestand tegen droogte en kunnen verdroging van natuur en bodemdaling worden beperkt. </p>
         </v-list-item-content>
 
       </v-list-item>

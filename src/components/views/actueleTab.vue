@@ -33,7 +33,6 @@
               </v-card-text>
               </v-sheet>
         </v-tab-item>
-         <v-tab-item>
           <v-card-title>
           Grondwaterafhankelijke natuur
           </v-card-title>

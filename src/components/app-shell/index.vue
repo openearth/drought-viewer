@@ -1,5 +1,10 @@
 <template>
   <v-app>
+    <v-overlay absolute z-index="1000">
+      Op dit moment is de droogteradar even niet bereikbaar. Wij zijn bezig met onderzoek.
+
+      Heeft u vragen? Stuur ons dan een email: <a href = "mailto: droogteradar@deltares.nl">droogteradar@deltares.nl</a>
+    </v-overlay>
     <v-app-bar
       class="app-header"
       app
@@ -37,7 +42,7 @@
         </v-tab>
       </v-tabs>
     </v-app-bar>
-    <router-view></router-view>
+    <router-view></router-view> 
   </v-app>
 </template>
 
